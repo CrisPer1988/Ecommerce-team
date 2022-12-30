@@ -1,0 +1,143 @@
+:root {
+    --header-height: 3.5rem;
+    --first-color: hsl(354, 78%, 60%);
+    --button-color: hsl(0, 0%, 17%);
+    --button-color-alt: hsl(0, 0%, 21%);
+    --card-color: hsl(0, 0%, 90%);
+    --title-color: hsl(0, 0%, 15%);
+    --text-color: hsl(0, 0%, 35%);
+    --text-color-light: hsl(0, 0%, 55%);
+    --body-color: hsl(206, 4%, 97%);
+    --container-color: #fff;
+    --border-color: hsl(0, 0%, 94%);
+    --body-font: 'Roboto', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--body-color);
+}
+
+.img {
+    display: block;
+}
+
+.header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin: 2rem;
+    height: 100vh;
+    
+    
+}
+
+.header h2 {
+    grid-row: 2 / 3;
+}
+
+.header img {
+    grid-column: 2 / 3;
+    grid-row: 1 / 6;
+    background-color: var(--first-color);
+    height: 100vh;
+    
+    
+}
+
+.header > p {
+    grid-column: 1 / 2;
+    align-items: center;
+    grid-row: 3 / 4;
+    color: var(--text-color);
+    font-family: var(--body-font);
+    letter-spacing: 0.1rem;
+}
+
+.header span {
+    grid-column: 1 / 2;
+    grid-row: 4 / 5;
+    color: var(--first-color);
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: var(--body-font);
+}
+
+
+.btn {
+    grid-column: 1 / 2;
+    grid-row: 5 / 6;
+   
+}
+
+.btn1 {
+    padding: 1rem;
+    background-color:var(--text-color-light);
+    border: none;
+    
+    
+}
+
+.btn2 {
+    padding: 1.5rem;
+    background-color:var(--button-color);
+    border: none;
+    
+}
+
+.tittle {
+    font-family: var(--body-font);
+    font-size: 2.5rem;
+    color: var(--title-color);
+}
+
+.content__seccion {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    text-align: center;
+    font-family: var(--body-font);
+    margin: 2rem;
+}
+
+.seccion__img {
+    justify-self: center;
+}
+
+.content__seccion p {
+    grid-row: 2 / 3;
+    color: var(--text-color-light);
+}
+
+.content__seccion img {
+    width: 200px;
+    border-radius: 10px;
+    background-color:var(--card-color);
+    
+}
+
+.footer {
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer p {
+    color: var(--text-color);
+}
+
+.footer a {
+    text-decoration: none;
+}
+
+.copyright {
+    text-align: center;
+    margin-top: 3rem;
+
+}
+
+
+
