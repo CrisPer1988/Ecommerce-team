@@ -22,9 +22,14 @@
     font-family: 'Roboto', sans-serif;
 }
 
-html, body {
+html,
+body {
     background-color: var(--body-color);
     scroll-behavior: smooth;
+}
+
+.desktop {
+    display: none;
 }
 
 /*----------------- HEADER */
@@ -42,8 +47,45 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: white;
+    box-shadow: 1px 0 5px rgb(0 0 0 / .5);
 
-    padding: 1rem;
+    /* AGREGUE LA SOMBRA DEL NAV */
+
+    padding: .2rem 1rem;
+}
+
+.fa-table-cells-large {
+    position: relative;
+}
+
+/* AGREGUE EL MENU HAMBURGUESA */
+
+.menu__mobile {
+    position: absolute;
+    top: 0;
+    right: -200%;
+
+    background: white;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    height: 100vh;
+    transition: right .2s;
+}
+
+.header__container .show__menu {
+    right: 0;
+}
+
+.menu__mobile a {
+    text-decoration: none;
+    color: black;
+    font-size: 2rem;
+    font-weight: 600;
 }
 
 .left__header {
@@ -79,7 +121,7 @@ header {
     position: relative;
 }
 
-.right__header .fa-bag-shopping::after{
+.right__header .fa-bag-shopping::after {
     content: "0";
     height: 15px;
     width: 15px;
@@ -97,7 +139,7 @@ header {
 
 /*------------------- HERO */
 
-.header{
+.header {
     width: 100%;
     height: auto;
     display: flex;
@@ -217,12 +259,12 @@ header {
     padding: .5rem 2rem;
 }
 
-.images__box{
+.images__box {
     position: relative;
     max-width: 300px;
 }
 
-.button__float{
+.button__float {
     position: absolute;
     bottom: 30px;
     right: 25px;
@@ -304,11 +346,11 @@ header {
     text-decoration: none;
 }
 
-.social_icons a{
+.social_icons a {
     text-decoration: none;
 }
 
-.social_icons i{
+.social_icons i {
     margin-right: 20px;
     color: var(--text-color);
 }
@@ -317,18 +359,26 @@ header {
     color: var(--text-color);
     text-align: center;
     margin-top: 3rem;
-    
+
 }
 
 @media (min-width: 700px) {
+    .desktop {
+        display: block;
+    }
+
+    .header__container {
+        padding: .5rem 3rem;
+    }
+
     .header {
         display: grid;
         grid-template-columns: 1fr 1fr;
-}
+    }
 
-.header__container {
-    background-color:var(--body-color);
-}
+    .header__container {
+        background-color: var(--body-color);
+    }
 
     .shirt__img {
         grid-column: 2 / 3;
@@ -336,7 +386,7 @@ header {
         width: 100%;
         height: 100vh;
         align-items: center;
-        
+
     }
 
     .shirt__img img {
@@ -347,7 +397,7 @@ header {
     .hero__contents {
         grid-column: 1 / 2;
         margin-top: 100px;
-        
+
     }
 
     .show__box {
@@ -362,7 +412,7 @@ header {
     .show__box:nth-child(2) {
         border-right: 1px solid var(--text-color);
     }
-    
+
     .show__images {
         grid-template-columns: 1fr 1fr 1fr;
     }
@@ -370,5 +420,5 @@ header {
     .footer_container {
         flex-direction: row;
     }
-    
+
 }
