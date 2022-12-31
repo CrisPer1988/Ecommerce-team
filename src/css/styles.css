@@ -22,8 +22,9 @@
     font-family: 'Roboto', sans-serif;
 }
 
-body {
+html, body {
     background-color: var(--body-color);
+    scroll-behavior: smooth;
 }
 
 /*----------------- HEADER */
@@ -31,6 +32,8 @@ body {
 header {
     width: 100%;
     margin: auto;
+    position: fixed;
+    z-index: 100;
 }
 
 .header__container {
@@ -72,19 +75,49 @@ header {
 
 .right__header i {
     font-size: 1.2rem;
+    cursor: pointer;
+    position: relative;
+}
+
+.right__header .fa-bag-shopping::after{
+    content: "0";
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    color: white;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    background-color: var(--title-color);
 }
 
 /*------------------- HERO */
 
-.shirt__img {
+.header{
     width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.shirt__img {
+    width: 65%;
+    height: 450px;
     padding: 1rem;
     display: flex;
+    align-self: flex-end;
+    align-items: flex-end;
     justify-content: center;
+    background-color: var(--first-color);
 }
 
 .shirt__img img {
     width: 200px;
+    height: 200px;
 }
 
 .hero__contents {
@@ -120,8 +153,6 @@ header {
     padding: 1rem;
     background-color: var(--text-color-light);
     border: none;
-
-
 }
 
 .btn2 {
@@ -180,13 +211,36 @@ header {
 .seccion__img {
     justify-self: center;
     width: 100%;
+    height: 85%;
     border-radius: 10px 10px 0 0;
     background-color: var(--card-color);
     padding: .5rem 2rem;
 }
 
+.images__box{
+    position: relative;
+    max-width: 300px;
+}
+
+.button__float{
+    position: absolute;
+    bottom: 30px;
+    right: 25px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    background-color: #fff;
+    font-size: 20px;
+    font-weight: lighter;
+    cursor: pointer;
+    font-family: 'Courier New', Courier, monospace;
+    box-shadow: 1px 2px 10px var(--text-color);
+}
+
 .text_box {
-    padding: 1rem .5rem;
+    padding: 1rem .8rem;
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
@@ -250,11 +304,17 @@ header {
     text-decoration: none;
 }
 
+.social_icons a{
+    text-decoration: none;
+}
 
-
-
+.social_icons i{
+    margin-right: 20px;
+    color: var(--text-color);
+}
 
 .copyright {
+    color: var(--text-color);
     text-align: center;
     margin-top: 3rem;
 
