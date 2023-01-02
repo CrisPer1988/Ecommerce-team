@@ -372,29 +372,31 @@ header {
 }
 
 /* 576px */
-    /* TODO: Pie de página en dos columnas */
-    /* TODO: imágenes en dos filas */
+/* TODO: Pie de página en dos columnas */
+/* TODO: imágenes en dos filas */
 
 /* 767px */
-    /* TODO: Pie de página en cuatro columnas */
-    /* TODO: Texto de líneas en 4 columnas */
-    /* TODO: Hero en dos columnas */
+/* TODO: Pie de página en cuatro columnas */
+/* TODO: Texto de líneas en 4 columnas */
+/* TODO: Hero en dos columnas */
 
 /* 768px */
-    /* TODO: aparece el menú de escritorio */
+/* TODO: aparece el menú de escritorio */
 
 /* 992 */
-    /* TODO: imágenes en tres columnas */
+/* TODO: imágenes en tres columnas */
 
 @media (min-width: 700px) {
 
-    .right__header :nth-child(4) {  /* DELETE ICON-HAMBURGUER */
+    .right__header :nth-child(4) {
+        /* DELETE ICON-HAMBURGUER */
         display: none;
     }
 
     .desktop {
         display: block;
-        margin-left: 2rem; /*ADD MARGIN*/
+        margin-left: 2rem;
+        /*ADD MARGIN*/
     }
 
     .header__container {
@@ -402,9 +404,12 @@ header {
     }
 
     .header {
-        width: 100%;
+        max-width: 70%;
+        margin: auto;
         display: grid;
         grid-template-columns: 1fr 1fr;
+        padding-top: 10rem;
+        /* ACOMODE EL ANCHO DE DE HERO */
     }
 
     .header__container {
@@ -425,10 +430,21 @@ header {
         height: 500px;
     }
 
+
     .hero__contents {
         grid-column: 1 / 2;
         grid-row: 1 / 2;
+        display: grid;
+        gap: .5rem;
         margin-top: 100px;
+        /* REDUJE EL MARGEN ENTRE EL TEXTO */
+    }
+
+    .content__seccion {
+        max-width: 70%;
+        margin: auto;
+        padding-bottom: 10rem;
+        /* REDUJE EL ANCHO DEL CONTENEDOR */
     }
 
     .show__box {
@@ -450,6 +466,9 @@ header {
 
     .footer_container {
         flex-direction: row;
+        max-width: 70%;
+        margin: auto;
+        /* REDUJE EL ANCHO DEL CONTENEDOR */
     }
 
 }
