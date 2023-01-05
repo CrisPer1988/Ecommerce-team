@@ -1,6 +1,15 @@
-let icon = document.getElementById('icon__menu');
-let menu = document.getElementById('menu__mobile');
+let iconMenu = document.getElementById('icon__menu');
+let menuMobile = document.getElementById('menu__mobile');
 
-icon.addEventListener('click', function(){
-    menu.classList.toggle('show__menu')
-})
+function closeMenu() {
+    menuMobile.classList.toggle('show__menu') 
+}
+
+iconMenu.addEventListener('click', closeMenu);
+
+let contentMenu = document.querySelectorAll("#menu__mobile a");
+
+for (const a of contentMenu) {
+    a.addEventListener("click", closeMenu)
+    
+}
