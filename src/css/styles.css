@@ -77,8 +77,10 @@ header {
   transition: right 0.5s;
 }
 
+
 .header__container .show__menu {
   right: 0;
+  
 }
 
 .menu__mobile a {
@@ -117,6 +119,7 @@ header {
   align-items: center;
   justify-content: flex-end;
   gap: 1rem;
+
 }
 
 .right__header i {
