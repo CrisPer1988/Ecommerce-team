@@ -28,6 +28,58 @@ body {
   scroll-behavior: smooth;
 }
 
+
+
+.products__print{
+  display: grid;
+  gap: 1rem;
+
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.produc__print {
+  background-color: var(--body-color);
+}
+
+.produc__print img {
+  width: 300px;
+}
+
+.btn__add{
+  border-radius: 10px;
+  background-color: aquamarine;
+  border: none;
+  
+  
+}
+
+.button__float {
+  position: absolute;
+  bottom: 30px;
+  right: 25px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  background-color: #fff;
+  font-size: 20px;
+  font-weight: lighter;
+  cursor: pointer;
+  font-family: "Courier New", Courier, monospace;
+  box-shadow: 1px 2px 10px var(--text-color);
+}
+
+
+
+
+
+
+
+
+
+
+
 .desktop {
   display: none;
 }
@@ -291,15 +343,21 @@ header {
   padding: 0.5rem 2rem;
 }
 
-.images__box {
+/* .images__box {
   position: relative;
   max-width: 300px;
-}
+} */
+
+
+ 
+.product__img {
+  position: relative;
+} 
 
 .button__float {
   position: absolute;
-  bottom: 30px;
-  right: 25px;
+  bottom: -10px;
+  right: 50px;
   width: 40px;
   height: 40px;
   border-radius: 50%;
