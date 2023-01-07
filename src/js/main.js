@@ -52,6 +52,8 @@ let iconMenu = document.getElementById("icon__menu");
 let menuMobile = document.getElementById("menu__mobile");
 let contentMobileMenu = document.querySelectorAll("#menu__mobile a");
 
+let header = document.querySelector(".header__container");
+
 function closeMenu() {
   menuMobile.classList.toggle("show__menu");
 }
@@ -72,9 +74,9 @@ bagIcon.addEventListener("click", function () {
   shoppingBag.classList.add("shopping__bag--active");
 });
 
-closeIcon.addEventListener("click", function () {
-  shoppingBag.classList.remove("shopping__bag--active");
-});
+// closeIcon.addEventListener("click", function () {
+//   shoppingBag.classList.remove("shopping__bag--active");
+// });
 
 // FUNCIÓN con IntersectionObserver para cambiar los estilos de la barra de navegación
 (()=>{
@@ -82,12 +84,11 @@ closeIcon.addEventListener("click", function () {
 
     const options = {
         root: null,
-        rootMargin: '25px 0px 0px 0px'
+        // rootMargin: '25px 0px 0px 0px'
         // threshold: 0
     }
 
     function callback(entries, observer){
-        console.log("funciona");
         header.classList.toggle('transparent')
     }
 
