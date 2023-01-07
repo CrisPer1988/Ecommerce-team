@@ -32,6 +32,19 @@ body {
   display: none;
 }
 
+/* Estilos a la barra de desplazamiento vertical */
+body::-webkit-scrollbar {
+  width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #bebebe;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--title-color);
+}
+
 /*----------------- HEADER */
 
 header {
@@ -53,6 +66,11 @@ header {
   /* AGREGUE LA SOMBRA DEL NAV */
 
   padding: 0.2rem 2rem 0.1rem 1rem;
+}
+
+.transparent{
+  background-color: transparent;
+  box-shadow: none;
 }
 
 .fa-table-cells-large {
@@ -366,9 +384,9 @@ header {
 }
 
 .copyright {
-  color: var(--text-color);
+  color: var(--text-color-light);
   text-align: center;
-  margin-top: 3rem;
+  padding: 2rem 0px;
 }
 
 /* 576px */
