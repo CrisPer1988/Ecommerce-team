@@ -23,6 +23,7 @@ let productos = [
 ]
 
 const products = document.querySelector(".products__print")
+let productCart = {};
 
 function printProducts() {
     let html = ""
@@ -31,7 +32,9 @@ function printProducts() {
         html += `   <div class="produc__print">
                         <div class="product__img">
                             <img src="${image}" alt="${name}" />
-                            <button class="product__button button__float" id="${id}">+</button>
+                            <div class="product__button" id="${id}">
+                                <button class="product__button button__float">+</button>
+                            </div>
                         </div>
 
                         <div class="product__info">
@@ -45,6 +48,30 @@ function printProducts() {
     products.innerHTML = html
 } 
 printProducts()
+//-------------------SUMA_BOTON_FLOTANTE-------------------------
+products.addEventListener("click", function(e){
+    if(e.target.classList.contains("button__float")){ 
+    const id = e.target.parentElement.id
+
+    let productFind =  productos.find(function(producto){
+        return producto.id === id;
+    });
+
+    if(productCart[id]) {
+        productCart[id].amount++
+    }else{
+        productCart[id] = {
+            ...productFind, 
+            amount: 1,
+        }
+        console.log(productCart);
+    }
+        
+    }
+    
+})
+
+//-------------------SUMA_BOTON_FLOTANTE_FIN-------------------------
 
 //-----------------------------------------------------------------
 
