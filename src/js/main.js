@@ -32,7 +32,7 @@ function printProducts() {
         <div class="produc__print">
             <div class="product__img">
                 <img src="${image}" alt="${name}" />
-                <button class="button__float">+</button>
+                <button class="product__button button__float" id="${id}">+</button>
             </div>
 
             <div class="product__info">
@@ -41,9 +41,7 @@ function printProducts() {
                 <p>Stock: ${stock}</p>
             </div>
 
-            <div class="product__button" id="${id}">
-            <button class="button__float">+</button>
-            </div>
+            
     </div>
 `;
     })
