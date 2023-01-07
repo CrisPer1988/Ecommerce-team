@@ -75,3 +75,22 @@ bagIcon.addEventListener("click", function () {
 closeIcon.addEventListener("click", function () {
   shoppingBag.classList.remove("shopping__bag--active");
 });
+
+// FUNCIÓN con IntersectionObserver para cambiar los estilos de la barra de navegación
+(()=>{
+    let observador = document.querySelector("observador");
+
+    const options = {
+        root: null,
+        rootMargin: '25px 0px 0px 0px'
+        // threshold: 0
+    }
+
+    function callback(entries, observer){
+        console.log("funciona");
+        header.classList.toggle('transparent')
+    }
+
+    const observer = new IntersectionObserver(callback, options);
+    observer.observe(observador);
+})();
