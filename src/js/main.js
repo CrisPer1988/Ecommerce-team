@@ -71,12 +71,12 @@ const bagIcon = document.querySelector(".fa-bag-shopping");
 const closeIcon = document.querySelector(".bx-x");
 
 bagIcon.addEventListener("click", function () {
-  shoppingBag.classList.add("shopping__bag--active");
+  shoppingBag.classList.toggle("shopping__bag--active");
 });
 
-// closeIcon.addEventListener("click", function () {
-//   shoppingBag.classList.remove("shopping__bag--active");
-// });
+closeIcon.addEventListener("click", function () {
+  shoppingBag.classList.toggle("shopping__bag--active");
+});
 
 // FUNCIÓN con IntersectionObserver para cambiar los estilos de la barra de navegación
 (()=>{
