@@ -227,12 +227,7 @@ header {
   padding: 1rem;
   background: white;
   box-shadow: -2px 0 20px rgb(0 0 0 / .2);
-  /* display: flex;
-  flex-flow: column wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem; */
-  width: 30%;
+  width: 320px;
   height: 100vh;
   transition: right 0.5s;
 }

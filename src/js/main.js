@@ -2,61 +2,62 @@ import { productos } from "./data.js";
 
 const products = document.querySelector(".products__print")
 
+const iconMenu = document.getElementById("icon__menu");
+const menuMobile = document.getElementById("menu__mobile");
+const contentMobileMenu = document.querySelectorAll("#menu__mobile a");
+
+const header = document.querySelector(".header__container");
+
+const shoppingBag = document.querySelector("#shopping__bag");
+const bagIcon = document.querySelector(".fa-bag-shopping");
+const closeIcon = document.querySelector(".bx-x");
+
+const shoppingBagAdd = document.querySelector('.shopping__bag--container')
+const emptyShopping = document.querySelector('.empty__shopping');
+
+let objCart = {};
+
+// --------------------- Mostrando lista de productos en el DOM
 function printProducts() {
-  let html = ""
+  let html = "";
 
-  productos.forEach(function ({ id, name, price, stock, image }) {
-    html += `   <div class="produc__print">
-                        <div class="product__img">
-                            <img src="${image}" alt="${name}" />
-                            <button class="product__button button__float" id="${id}">+</button>
-                        </div>
-
-                        <div class="product__info">
-                            <p>${name}</p>
-                            <p>Precio: ${price}</p>
-                            <p>Stock: ${stock}</p>
-                        </div>
-                    </div>`;
+  productos.forEach(({ id, name, price, stock, image })=>{
+    html += ` <div class="produc__print">
+                  <div class="product__img">
+                    <img src="${image}" alt="${name}" />
+                    <button class="product__button button__float" id="${id}">+</button>
+                  </div>
+                  <div class="product__info">
+                    <p>${name}</p>
+                    <p>Precio: ${price}</p>
+                    <p>Stock: ${stock}</p>
+                  </div>
+              </div>`;
   })
 
   products.innerHTML = html
 }
-printProducts()
 
-//-----------------------------------------------------------------
+printProducts();
+// --------------------- Mostrando lista de productos en el DOM
 
-let iconMenu = document.getElementById("icon__menu");
-let menuMobile = document.getElementById("menu__mobile");
-let contentMobileMenu = document.querySelectorAll("#menu__mobile a");
 
-let header = document.querySelector(".header__container");
 
-function closeMenu() {
+// --------------------- Funcionalidad de mostrar / ocultar el menu en mobile
+function menuSwitch() {
   menuMobile.classList.toggle("show__menu");
 }
 
-iconMenu.addEventListener("click", closeMenu);
+iconMenu.addEventListener("click", menuSwitch);
 
 contentMobileMenu.forEach((link) => {
-  link.addEventListener("click", closeMenu);
+  link.addEventListener("click", menuSwitch);
 });
+// --------------------- Funcionalidad de mostrar / ocultar el menu en mobile
 
-/* Shopping Cart's code */
 
-const shoppingBag = document.querySelector(".shopping__bag--summary");
-const bagIcon = document.querySelector(".fa-bag-shopping");
-const closeIcon = document.querySelector(".bx-x");
 
-bagIcon.addEventListener("click", function () {
-  shoppingBag.classList.toggle("shopping__bag--active");
-});
-
-closeIcon.addEventListener("click", function () {
-  shoppingBag.classList.toggle("shopping__bag--active");
-});
-
-// FUNCIÓN con IntersectionObserver para cambiar los estilos de la barra de navegación
+// --------------------- Función con IntersectionObserver
 (() => {
   let observador = document.querySelector("observador");
 
@@ -66,27 +67,38 @@ closeIcon.addEventListener("click", function () {
 
   observer.observe(observador);
 })();
+// --------------------- Función con IntersectionObserver
 
-// ----------------------------------------------CODIGO ALEX
 
-let objCart = {};
 
-let emptyShopping = document.querySelector('.empty__shopping');
-let shoppingBagAdd = document.querySelector('.shopping__bag--container')
+// --------------------- Código para mostrar / ocultar el lateral del carrito de compras
+bagIcon.addEventListener("click", ()=>{
+  shoppingBag.classList.toggle("shopping__bag--active");
+});
 
+closeIcon.addEventListener("click", ()=>{
+  shoppingBag.classList.toggle("shopping__bag--active");
+});
+// --------------------- Código para mostrar / ocultar el lateral del carrito de compras
+
+
+
+// --------------------- Código para imprimir los productos seleccionados en el lateral de compras
 function printProductCart() {
   let html = '';
 
   let arrayCart = Object.values(objCart)
 
+  console.log(arrayCart)
+
   arrayCart.forEach(({ id, name, price, stock, image, amount }) => {
     html += ` <div class="cart__product">
                 <div class="product__image">
-                  <img src="${image}" alt="">
+                  <img src="${image}" alt="${name}">
                 </div>
                 <div class="products__text" >
                   <span>${name}</span>
-                  <p>Stock: ${stock} | <span class="red_color">$24.00</span></p>
+                  <p>Stock: ${stock} | <span class="red_color">$${price}</span></p>
                   <p class="red_color">Subtotal: $${price}</p>
                   <p>${amount} units</p>
                   <div class="units" id="${id}">
@@ -100,27 +112,32 @@ function printProductCart() {
                 <span>$ items</span>
                 <span>$0.00 </span>
               </div>`
-    shoppingBagAdd.innerHTML = html;
   })
-
+  shoppingBagAdd.innerHTML = html;
 }
+// --------------------- Código para imprimir los productos seleccionados en el lateral de compras
 
-products.addEventListener('click', function (e) {
+
+
+// --------------------- Agrega o muestra por primera vez el amount de los productos en el carrito
+products.addEventListener('click', (e)=>{
   if (e.target.classList.contains('button__float')) {
     emptyShopping.style.display = 'none';
 
-    const itemId = e.target.id;
-
     let selectProduct = productos.find((item) => {
-      return item.id === itemId
+      return item.id === e.target.id
     })
 
-    objCart[itemId] ? objCart[itemId].amount++ : objCart[itemId] = { ...selectProduct, amount: 1 }
+    objCart[e.target.id] ? objCart[e.target.id].amount++ : objCart[e.target.id] = { ...selectProduct, amount: 1 }
   }
 
   printProductCart()
 })
+// --------------------- Agrega o muestra por primera vez el amount de los productos en el carrito
 
+
+
+// --------------------- Eventos para aumentar / disminuir / eliminar amount de carrito de compras
 shoppingBagAdd.addEventListener('click', function (e) {
 
   const id = e.target.parentElement.id
@@ -148,12 +165,7 @@ shoppingBagAdd.addEventListener('click', function (e) {
         text: '¿Está seguro de eliminar el producto?',
         icon: 'question',
         confirmButtonText: 'Entendido'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // delete objCart[id]
-        }
       })
-      // ERROR, NO DEJA ELIMINAR SI ES EL ULTIMO PRODUCTO EN EL CARRITO
       delete objCart[id]
     } else {
       objCart[id].amount--;
@@ -170,10 +182,11 @@ shoppingBagAdd.addEventListener('click', function (e) {
     }).then((result) => {
       if (result.isConfirmed) {
         delete objCart[id]
+        printProductCart()
       }
     })
   }
 
   printProductCart()
 })
-
+// --------------------- Eventos para aumentar / disminuir / eliminar amount de carrito de compras
