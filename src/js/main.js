@@ -1,26 +1,4 @@
-let productos = [
-  {
-    id: "1",
-    name: "Buzo rojo",
-    price: "14.00",
-    stock: 10,
-    image: "./src/images/featured1.png",
-  },
-  {
-    id: "2",
-    name: "Buzo negro",
-    price: "24.00",
-    stock: 15,
-    image: "./src/images/featured2.png",
-  },
-  {
-    id: "3",
-    name: "Buzo gris",
-    price: "24.00",
-    stock: 10,
-    image: "./src/images/featured3.png",
-  },
-]
+import { productos } from "./data.js";
 
 const products = document.querySelector(".products__print")
 
@@ -52,7 +30,6 @@ let iconMenu = document.getElementById("icon__menu");
 let menuMobile = document.getElementById("menu__mobile");
 let contentMobileMenu = document.querySelectorAll("#menu__mobile a");
 
-
 let header = document.querySelector(".header__container");
 
 function closeMenu() {
@@ -83,17 +60,10 @@ closeIcon.addEventListener("click", function () {
 (() => {
   let observador = document.querySelector("observador");
 
-  const options = {
-    root: null,
-    // rootMargin: '25px 0px 0px 0px'
-    // threshold: 0
-  }
-
-  function callback(entries, observer) {
+  const observer = new IntersectionObserver(() => {
     header.classList.toggle('transparent')
-  }
+  }, { root: null });
 
-  const observer = new IntersectionObserver(callback, options);
   observer.observe(observador);
 })();
 
@@ -110,39 +80,29 @@ function printProductCart() {
   let arrayCart = Object.values(objCart)
 
   arrayCart.forEach(({ id, name, price, stock, image, amount }) => {
-    html += `
-        <div class="cart__product">
-
-            <div class="product__image">
-              <img src="${image}" alt="">
-            </div>
-
-            <div class="products__text" >
-              <span>${name}</span>
-              <p>Stock: ${stock} | <span class="red_color">$24.00</span></p>
-              <p class="red_color">Subtotal: $${price}</p>
-              <p>${amount} units</p>
-
-              <div class="units" id="${id}">
-                <i class='bx bx-minus'></i>
-                <i class='bx bx-plus'></i>
-                <i class='bx bx-trash red_color'></i>
+    html += ` <div class="cart__product">
+                <div class="product__image">
+                  <img src="${image}" alt="">
+                </div>
+                <div class="products__text" >
+                  <span>${name}</span>
+                  <p>Stock: ${stock} | <span class="red_color">$24.00</span></p>
+                  <p class="red_color">Subtotal: $${price}</p>
+                  <p>${amount} units</p>
+                  <div class="units" id="${id}">
+                    <i class='bx bx-minus'></i>
+                    <i class='bx bx-plus'></i>
+                    <i class='bx bx-trash red_color'></i>
+                  </div>
+                </div>
               </div>
-
-            </div>
-
-          </div>
-
-          <div class="total__cart">
-
-          <span>$ items</span>
-          <span>$0.00 </span>
-
-        </div>
-        `
-
+              <div class="total__cart">
+                <span>$ items</span>
+                <span>$0.00 </span>
+              </div>`
     shoppingBagAdd.innerHTML = html;
   })
+
 }
 
 products.addEventListener('click', function (e) {
@@ -159,50 +119,59 @@ products.addEventListener('click', function (e) {
   }
 
   printProductCart()
-
 })
 
 shoppingBagAdd.addEventListener('click', function (e) {
 
+  const id = e.target.parentElement.id
+
+  let selectProduct = productos.find((item) => {
+    return item.id === id
+  })
+
   if (e.target.classList.contains('bx-plus')) {
-    const id = e.target.parentElement.id
-
-    let selectProduct = productos.find((item) => {
-      return item.id === id
-    })
-
     if (selectProduct.stock === objCart[id].amount) {
-      alert('No hay mas articulos disponibles')
+      Swal.fire({
+        title: 'Stock superado',
+        text: 'No hay más artículos disponibles',
+        icon: 'info',
+        confirmButtonText: 'Entendido'
+      })
     } else {
       objCart[id].amount++
-      console.log(shoppingBagAdd.length);
     }
   }
 
   if (e.target.classList.contains('bx-minus')) {
-    const id = e.target.parentElement.id
-
     if (objCart[id].amount === 1) {
-      const alert = confirm('¿Esta seguro de elminiar el producto?')
-      if (!alert) return
-
+      Swal.fire({
+        text: '¿Está seguro de eliminar el producto?',
+        icon: 'question',
+        confirmButtonText: 'Entendido'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // delete objCart[id]
+        }
+      })
       // ERROR, NO DEJA ELIMINAR SI ES EL ULTIMO PRODUCTO EN EL CARRITO
-
       delete objCart[id]
     } else {
-      objCart[id].amount--
+      objCart[id].amount--;
     }
-
   }
 
   if (e.target.classList.contains('bx-trash')) {
-    const alert = confirm('¿Esta seguro de eliminar este producto?')
-
-    if (!alert) return
-
-    const id = e.target.parentElement.id
-    delete objCart[id]
-
+    Swal.fire({
+      title: 'Quitar producto',
+      text: '¿Está seguro de quitar el producto de su carrito?',
+      icon: 'question',
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        delete objCart[id]
+      }
+    })
   }
 
   printProductCart()
