@@ -201,8 +201,8 @@ header {
   position: relative;
 }
 
-.right__header .fa-bag-shopping::after {
-  content: "0";
+.right__header .fa-bag-shopping span {
+  /* content: "0"; */
   height: 15px;
   width: 15px;
   border-radius: 50%;

@@ -15,6 +15,9 @@ const closeIcon = document.querySelector(".bx-x");
 const shoppingBagAdd = document.querySelector('.shopping__bag--container')
 const emptyShopping = document.querySelector('.empty__shopping');
 
+// const totalCart = document.querySelector(".total__cart");
+const numberProduct = document.getElementById("numberProduct");
+
 let objCart = {};
 
 // --------------------- Mostrando lista de productos en el DOM
@@ -86,34 +89,49 @@ closeIcon.addEventListener("click", ()=>{
 // --------------------- Código para imprimir los productos seleccionados en el lateral de compras
 function printProductCart() {
   let html = '';
-
   let arrayCart = Object.values(objCart)
+  numberProduct.innerText = arrayCart.length;
 
-  console.log(arrayCart)
+  if(arrayCart.length===0){
+    shoppingBagAdd.innerHTML = "";
+    shoppingBagAdd.innerHTML = `  <div class="empty__shopping">
+                                    <h2>My Shopping Bag</h2>
+                                    <img src="./src/images/empty-cart.png" alt="empty bag" />
+                                    <h2>Your bag is empty</h2>
+                                    <p>
+                                      You can add items to your shopping bag by clicking on the "+"
+                                      button on the products page.
+                                    </p>
+                                  </div>`
+  } else {
+    const totalApagar = arrayCart.reduce((acumulador, item)=>{
+      return acumulador += (item.price) * (item.amount);
+    },0)
 
-  arrayCart.forEach(({ id, name, price, stock, image, amount }) => {
-    html += ` <div class="cart__product">
-                <div class="product__image">
-                  <img src="${image}" alt="${name}">
-                </div>
-                <div class="products__text" >
-                  <span>${name}</span>
-                  <p>Stock: ${stock} | <span class="red_color">$${price}</span></p>
-                  <p class="red_color">Subtotal: $${price}</p>
-                  <p>${amount} units</p>
-                  <div class="units" id="${id}">
-                    <i class='bx bx-minus'></i>
-                    <i class='bx bx-plus'></i>
-                    <i class='bx bx-trash red_color'></i>
+    arrayCart.forEach(({ id, name, price, stock, image, amount }) => {
+      html += ` <div class="cart__product">
+                  <div class="product__image">
+                    <img src="${image}" alt="${name}">
+                  </div>
+                  <div class="products__text" >
+                    <span>${name}</span>
+                    <p>Stock: ${stock} | <span class="red_color">$${price}</span></p>
+                    <p class="red_color">Subtotal: $${price*amount}</p>
+                    <p>${amount} units</p>
+                    <div class="units" id="${id}">
+                      <i class='bx bx-minus'></i>
+                      <i class='bx bx-plus'></i>
+                      <i class='bx bx-trash red_color'></i>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="total__cart">
-                <span>$ items</span>
-                <span>$0.00 </span>
-              </div>`
-  })
-  shoppingBagAdd.innerHTML = html;
+                <div class="total__cart">
+                  <span>${arrayCart.length} items</span>
+                  <span>$${totalApagar}</span>
+                </div>`
+    })
+    shoppingBagAdd.innerHTML = html;
+  }
 }
 // --------------------- Código para imprimir los productos seleccionados en el lateral de compras
 
@@ -157,6 +175,7 @@ shoppingBagAdd.addEventListener('click', function (e) {
     } else {
       objCart[id].amount++
     }
+    printProductCart()
   }
 
   if (e.target.classList.contains('bx-minus')) {
@@ -165,10 +184,15 @@ shoppingBagAdd.addEventListener('click', function (e) {
         text: '¿Está seguro de eliminar el producto?',
         icon: 'question',
         confirmButtonText: 'Entendido'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          delete objCart[id]
+          printProductCart()
+        }
       })
-      delete objCart[id]
     } else {
       objCart[id].amount--;
+      printProductCart()
     }
   }
 
@@ -186,7 +210,5 @@ shoppingBagAdd.addEventListener('click', function (e) {
       }
     })
   }
-
-  printProductCart()
 })
 // --------------------- Eventos para aumentar / disminuir / eliminar amount de carrito de compras
