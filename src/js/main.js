@@ -27,7 +27,6 @@ let productos = [
 const iconDarkMode = document.querySelector(".dark__mode");
 
 iconDarkMode.addEventListener("click", function () {
-    iconDarkMode.classList.toggle("ball__active");
     document.body.classList.toggle("darkmode");
 });
 
