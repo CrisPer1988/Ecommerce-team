@@ -98,9 +98,7 @@ body {
 
 
 
-.desktop {
-  display: none;
-}
+
 
 /* Estilos a la barra de desplazamiento vertical */
 body::-webkit-scrollbar {
@@ -194,10 +192,9 @@ header {
 
 }
 
-.left__header a {
+.left__header {
   text-decoration: none;
   font-weight: 700;
-  color: var(--title-color);
   letter-spacing: 2px;
 }
 
@@ -421,8 +418,8 @@ header {
 }
 
 .header__container a {
-  color: hsl(0, 0%, 15%);
-  ;
+  color: var(--title-color);
+  text-decoration: none;
 }
 
 .shirt__img {
