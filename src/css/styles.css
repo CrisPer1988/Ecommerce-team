@@ -15,6 +15,20 @@
   --body-font: "Roboto", sans-serif;
 }
 
+body.darkmode {
+  --first-color: hsl(231, 39%, 34%);
+  --button-color: hsla(209, 31%, 32%, 0.589);
+  --button-color-alt: hsl(0, 99%, 26%);
+  --card-color: hsl(0, 0%, 90%);
+  --title-color: hsl(0, 31%, 90%);
+  --text-color: hsla(0, 79%, 55%, 0.801);
+  --text-color-light: hsl(0, 24%, 91%);
+  --body-color: hsl(240, 36%, 14%);
+  --container-color: #fff;
+  --border-color: hsl(0, 0%, 94%);
+
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -97,6 +111,8 @@ body::-webkit-scrollbar-thumb {
   background-color: var(--title-color);
 }
 
+
+
 /*----------------- HEADER */
 
 header {
@@ -169,6 +185,7 @@ header {
   display: flex;
   align-items: center;
   gap: 0.2rem;
+  
 }
 
 .left__header a {
@@ -342,6 +359,18 @@ header {
   height: auto;
   display: flex;
   flex-direction: column;
+}
+
+.tittle {
+  color: var(--title-color);
+}
+
+.tittle__seccion{
+  color:var(--title-color);
+}
+
+.header__container a {
+  color: hsl(0, 0%, 15%);;
 }
 
 .shirt__img {
@@ -533,6 +562,7 @@ header {
 
 .box__footer {
   text-align: left;
+  
 }
 
 .box__footer h3 {
@@ -594,9 +624,7 @@ header {
     /*ADD MARGIN*/
   }
 
-  .header__container {
-    padding: 0.5rem 3rem;
-  }
+
 
   .header {
     max-width: 70%;
@@ -608,7 +636,8 @@ header {
   }
 
   .header__container {
-    background-color: var(--body-color);
+    background-color: hsl(206, 4%, 97%);;
+    padding: 0.5rem 3rem;
   }
 
   .shirt__img {

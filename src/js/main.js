@@ -1,14 +1,65 @@
 import { productos } from "./data.js";
 
+//-------------DARKMODE--------------------
+
+const iconDarkMode = document.querySelector(".dark__mode");
+
+iconDarkMode.addEventListener("click", function () {
+    document.body.classList.toggle("darkmode");
+});
+
+
 const products = document.querySelector(".products__print")
+let productCart = {};
 
 const iconMenu = document.getElementById("icon__menu");
 const menuMobile = document.getElementById("menu__mobile");
 const contentMobileMenu = document.querySelectorAll("#menu__mobile a");
 
+const shoppingBag = document.querySelector(".shopping__bag--summary");
+
 const header = document.querySelector(".header__container");
 
-const shoppingBag = document.querySelector("#shopping__bag");
+// const shoppingBag = document.querySelector("#shopping__bag");
+    // productos.forEach(function({ id, name, price, stock, image }){
+    //     html += `   <div class="produc__print">
+    //                     <div class="product__img">
+    //                         <img src="${image}" alt="${name}" />
+    //                         <div class="product__button" id="${id}">
+    //                             <button class="product__button button__float">+</button>
+    //                         </div>
+    //                     </div>
+
+    //                     <div class="product__info">
+    //                         <p>${name}</p>
+    //                         <p>Precio: ${price}</p>
+    //                         <p>Stock: ${stock}</p>
+    //                     </div>
+    //                 </div>`;
+    // })
+
+    // products.innerHTML = html
+// } 
+// printProducts()
+
+
+// let iconMenu = document.getElementById("icon__menu");
+// let menuMobile = document.getElementById("menu__mobile");
+// let contentMobileMenu = document.querySelectorAll("#menu__mobile a");
+
+// let header = document.querySelector(".header__container");
+
+function closeMenu() {
+  menuMobile.classList.toggle("show__menu");
+}
+
+iconMenu.addEventListener("click", closeMenu);
+
+contentMobileMenu.forEach((link) => {
+  link.addEventListener("click", closeMenu);
+});
+
+
 const bagIcon = document.querySelector(".fa-bag-shopping");
 const closeIcon = document.querySelector(".bx-x");
 
