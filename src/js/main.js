@@ -58,37 +58,37 @@ function printProducts() {
 } 
 printProducts()
 //---------------------------------------------------------------
-function printProductCart(){
-    let html = "hola perro"
+// function printProductCart(){
+//     let html = "hola perro"
 
 
 
-    productCart.innerHTML = html
-} 
+//     productCart.innerHTML = html
+// } 
 
 //-------------------SUMA_BOTON_FLOTANTE-------------------------
-products.addEventListener("click", function(e){
-    if(e.target.classList.contains("button__float")){ 
-    const id = e.target.parentElement.id
+// products.addEventListener("click", function(e){
+//     if(e.target.classList.contains("button__float")){ 
+//     const id = e.target.parentElement.id
 
-    let productFind =  productos.find(function(producto){
-        return producto.id === id;
-    });
+//     let productFind =  productos.find(function(producto){
+//         return producto.id === id;
+//     });
 
-    if(productCart[id]) {
-        productCart[id].amount++
-    }else{
-        productCart[id] = {
-            ...productFind, 
-            amount: 1,
-        }
-        console.log(productCart);
-    }
+//     if(productCart[id]) {
+//         productCart[id].amount++
+//     }else{
+//         productCart[id] = {
+//             ...productFind, 
+//             amount: 1,
+//         }
+//         console.log(productCart);
+//     }
         
-    }
-    printProductCart()
+//     }
+//     printProductCart()
     
-})
+// })
 
 //-------------------SUMA_BOTON_FLOTANTE_FIN-------------------------
 
