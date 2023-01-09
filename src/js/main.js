@@ -28,8 +28,8 @@ const products = document.querySelector(".products__print")
 const iconMenu = document.getElementById("icon__menu");
 const menuMobile = document.getElementById("menu__mobile");
 const contentMobileMenu = document.querySelectorAll("#menu__mobile a");
-const shoppingBag = document.querySelector(".shopping__bag--summary");
-// const shoppingBag = document.querySelector("#shopping__bag");
+// const shoppingBag = document.querySelector(".shopping__bag--summary");
+const shoppingBag = document.querySelector("#shopping__bag");
 const header = document.querySelector(".header__container");
 const bagIcon = document.querySelector(".fa-bag-shopping");
 const closeIcon = document.querySelector(".bx-x");
@@ -60,9 +60,7 @@ const printProducts = ()=>{
       html += `   <div class="produc__print">
                       <div class="product__img">
                           <img src="${image}" alt="${name}" />
-                          <div class="product__button" id="${id}">
-                              <button class="product__button button__float">+</button>
-                          </div>
+                          <button class="product__button button__float" id="${id}">+</button>
                       </div>
 
                       <div class="product__info">
@@ -158,35 +156,82 @@ function printProductCart() {
 
 
 // --------------------- Agrega o muestra por primera vez el amount de los productos en el carrito
-products.addEventListener('click', function (e) {
+products.addEventListener('click', (e)=>{
   if (e.target.classList.contains('button__float')) {
     emptyShopping.style.display = 'none';
 
-    const itemId = e.target.id;
-
     let selectProduct = productos.find((item) => {
-      return item.id === itemId
+      return item.id === e.target.id;
     })
 
-    if (objCart[itemId]) {
-
-      let selectProduct = productos.find((item) => {
-        return item.id === itemId
-      })
-
-      if (selectProduct.stock === objCart[itemId].amount) {
-        alert('No hay mas articulos disponibles')
-      } else {
-        objCart[itemId].amount++
-      }
-    } else {
-      objCart[itemId] = {...selectProduct, amount: 1}
-    }
+    objCart[e.target.id] ? objCart[e.target.id].amount++ : objCart[e.target.id] = { ...selectProduct, amount: 1 }
   }
 
   printProductCart()
 })
 // --------------------- Agrega o muestra por primera vez el amount de los productos en el carrito
+
+
+
+// --------------------- Eventos para aumentar / disminuir / eliminar amount de carrito de compras
+shoppingBagAdd.addEventListener('click', function (e) {
+
+  const id = e.target.parentElement.id
+
+  let selectProduct = productos.find((item) => {
+    return item.id === id
+  })
+
+  // let arrayCart = Object.values(objCart)
+
+  if (e.target.classList.contains('bx-plus')) {
+    if (selectProduct.stock === objCart[id].amount) {
+      Swal.fire({
+        title: 'Stock superado',
+        text: 'No hay más artículos disponibles',
+        icon: 'info',
+        confirmButtonText: 'Entendido'
+      })
+    } else {
+      objCart[id].amount++
+    }
+    printProductCart()
+  }
+
+  if (e.target.classList.contains('bx-minus')) {
+    if (objCart[id].amount === 1) {
+      Swal.fire({
+        text: '¿Está seguro de eliminar el producto?',
+        icon: 'question',
+        confirmButtonText: 'Entendido'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          delete objCart[id]
+          printProductCart()
+        }
+      })
+    } else {
+      objCart[id].amount--;
+      printProductCart()
+    }
+  }
+
+  if (e.target.classList.contains('bx-trash')) {
+    Swal.fire({
+      title: 'Quitar producto',
+      text: '¿Está seguro de quitar el producto de su carrito?',
+      icon: 'question',
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        delete objCart[id]
+        printProductCart()
+      }
+    })
+  }
+})
+// --------------------- Eventos para aumentar / disminuir / eliminar amount de carrito de compras
 
 
 
@@ -201,8 +246,6 @@ products.addEventListener('click', function (e) {
 
 
 // function printTotalProductCart() {
-//   let arrayCart = Object.values(objCart);
-
 //   if (!arrayCart.length) {
 //     totalCart.innerHTML = `
 //     <div class="total__cart">
@@ -215,119 +258,13 @@ products.addEventListener('click', function (e) {
 //       `
 //     return
 //   }
-
-//   let sum = 0;
-//   let totalAmount = 0
-
-//   arrayCart.forEach(({ amount, price }) => {
-//     sum += amount * price
-//   })
-
-//   arrayCart.forEach(({ amount }) => {
-//     totalAmount += amount
-//   })
-
-//   totalCart.innerHTML = `
-//   <div class="total__cart">
-//   <div class="price">
-//   <span>${totalAmount} items</span>
-//   <span>$${sum},00</span>
-//   </div>
-//   <button class="btn_buy">Comprar</button>
-//   </div>
-//       `
 // }
 
-// !
- //   objCart[e.target.id] ? objCart[e.target.id].amount++ : objCart[e.target.id] = { ...selectProduct, amount: 1 }
-  // }
-
-  // printProductCart()
-  // !
-
-
-
-// // --------------------- Eventos para aumentar / disminuir / eliminar amount de carrito de compras
-// shoppingBagAdd.addEventListener('click', function (e) {
-
-//   const id = e.target.parentElement.id
-
-//   let selectProduct = productos.find((item) => {
-//     return item.id === id
-//   })
-//   let arrayCart = Object.values(objCart)
-
-//   if (e.target.classList.contains('bx-plus')) {
-//     if (selectProduct.stock === objCart[id].amount) {
-//       Swal.fire({
-//         title: 'Stock superado',
-//         text: 'No hay más artículos disponibles',
-//         icon: 'info',
-//         confirmButtonText: 'Entendido'
-//       })
-//     } else {
-//       objCart[id].amount++
-//     }
-//     printProductCart()
-//   }
-
-//   if (e.target.classList.contains('bx-minus')) {
-//     if (objCart[id].amount === 1) {
-//       Swal.fire({
-//         text: '¿Está seguro de eliminar el producto?',
-//         icon: 'question',
-//         confirmButtonText: 'Entendido'
-//       }).then((result) => {
-//         if (result.isConfirmed) {
-//           delete objCart[id]
-//           printProductCart()
-//         }
-//       })
-//     const id = e.target.parentElement.id
-
-//     // ERROR, NO DEJA ELIMINAR SI ES EL ULTIMO PRODUCTO EN EL CARRITO
-
-//     if (objCart[id].amount === 1) {
-//       const alert = confirm('¿Esta seguro de elminiar el producto?')
-//       if (alert) delete objCart[id]
-
-//     } else {
-//       objCart[id].amount--;
-//       printProductCart()
-//     }
-//   }
-
-//   if (e.target.classList.contains('bx-trash')) {
-//     Swal.fire({
-//       title: 'Quitar producto',
-//       text: '¿Está seguro de quitar el producto de su carrito?',
-//       icon: 'question',
-//       confirmButtonText: 'Sí',
-//       cancelButtonText: 'No'
-//     }).then((result) => {
-//       if (result.isConfirmed) {
-//         delete objCart[id]
-//         printProductCart()
-//       }
-//     })
-//   }
 // })
-// // --------------------- Eventos para aumentar / disminuir / eliminar amount de carrito de compras
-
-//   printProductCart()
-//   printTotalProductCart()
-//   printNumCart()
-// })
-
-
-
-
-
 
 
 // btnHero.addEventListener('click', function (e) {
 //   if (e.target.classList.contains('btn2')) {
-
 //     printProductCart()
 //   }
 // })
