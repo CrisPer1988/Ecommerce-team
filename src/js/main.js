@@ -22,6 +22,16 @@ let productos = [
     },
 ]
 
+//-------------DARKMODE--------------------
+
+const iconDarkMode = document.querySelector(".dark__mode");
+
+iconDarkMode.addEventListener("click", function () {
+    iconDarkMode.classList.toggle("ball__active");
+    document.body.classList.toggle("darkmode");
+});
+
+
 const products = document.querySelector(".products__print")
 let productCart = {};
 
@@ -48,6 +58,15 @@ function printProducts() {
     products.innerHTML = html
 } 
 printProducts()
+//---------------------------------------------------------------
+function printProductCart(){
+    let html = "hola perro"
+
+
+
+    productCart.innerHTML = html
+} 
+
 //-------------------SUMA_BOTON_FLOTANTE-------------------------
 products.addEventListener("click", function(e){
     if(e.target.classList.contains("button__float")){ 
@@ -68,6 +87,7 @@ products.addEventListener("click", function(e){
     }
         
     }
+    printProductCart()
     
 })
 
