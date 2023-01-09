@@ -51,7 +51,7 @@ iconDarkMode.addEventListener("click", () => {
   body.className = "darkmode";
   iconSun.style.display = 'block'
   iconDarkMode.style.display = 'none'
-  
+
   verificarStorage();
   localStorage.setItem("data", "true")
 });
@@ -60,7 +60,7 @@ iconSun.addEventListener("click", () => {
   body.className = "body";
   iconSun.style.display = 'none'
   iconDarkMode.style.display = 'block'
-  
+
   verificarStorage();
   localStorage.setItem("data", "false")
 });
@@ -174,13 +174,23 @@ function printProductCart() {
 // --------------------- Agrega o muestra por primera vez el amount de los productos en el carrito
 products.addEventListener('click', (e) => {
   if (e.target.classList.contains('button__float')) {
-    emptyShopping.style.display = 'none';
+
+    const id = e.target.id;
 
     let selectProduct = productos.find((item) => {
       return item.id === e.target.id;
     })
 
-    objCart[e.target.id] ? objCart[e.target.id].amount++ : objCart[e.target.id] = { ...selectProduct, amount: 1 }
+    if (objCart[id]) {
+
+      if (selectProduct.stock === objCart[id].amount) {
+        alert('No tenemos mas productos disponibles')
+      } else {
+        objCart[e.target.id].amount++
+      }
+    } else {
+      objCart[e.target.id] = { ...selectProduct, amount: 1 }
+    }
   }
 
   printProductCart()
@@ -251,11 +261,11 @@ shoppingBagAdd.addEventListener('click', function (e) {
 
 
 // Comprobar el LocalStorage
-const verificarStorage = ()=>{
+const verificarStorage = () => {
   let dataStorage = localStorage.getItem("data");
   console.log(dataStorage)
-  if(dataStorage=="true"){
-    
+  if (dataStorage == "true") {
+
   } else {
 
   }
