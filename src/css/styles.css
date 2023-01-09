@@ -16,16 +16,18 @@
 }
 
 body.darkmode {
-  --first-color: hsl(231, 39%, 34%);
+  --first-color: #9adde0;
   --button-color: hsla(209, 31%, 32%, 0.589);
   --button-color-alt: hsl(0, 99%, 26%);
-  --card-color: hsl(0, 0%, 90%);
+  --card-color: #15141d;
   --title-color: hsl(0, 31%, 90%);
-  --text-color: hsla(0, 79%, 55%, 0.801);
+  --text-color: white;
   --text-color-light: hsl(0, 24%, 91%);
-  --body-color: hsl(240, 36%, 14%);
+  --body-color: #1F1D2A;
   --container-color: #fff;
   --border-color: hsl(0, 0%, 94%);
+
+  color: white;
 
 }
 
@@ -40,6 +42,8 @@ html,
 body {
   background-color: var(--body-color);
   scroll-behavior: smooth;
+
+  transition: all .7s;
 }
 
 
@@ -120,7 +124,7 @@ header {
   margin: auto;
   position: fixed;
   z-index: 100;
-  background: white;
+  background: var(--body-color);
   box-shadow: 1px 0 5px rgb(0 0 0 / 0.5);
 
 }
@@ -187,7 +191,7 @@ header {
   display: flex;
   align-items: center;
   gap: 0.2rem;
-  
+
 }
 
 .left__header a {
@@ -250,7 +254,7 @@ header {
   right: -100%;
 
   padding: 1rem;
-  background: white;
+  background: var(--body-color);
   box-shadow: -2px 40px 20px rgb(0 0 0 / .2);
   /* display: flex;
   flex-flow: column wrap;
@@ -412,12 +416,13 @@ header {
   color: var(--title-color);
 }
 
-.tittle__seccion{
-  color:var(--title-color);
+.tittle__seccion {
+  color: var(--title-color);
 }
 
 .header__container a {
-  color: hsl(0, 0%, 15%);;
+  color: hsl(0, 0%, 15%);
+  ;
 }
 
 .shirt__img {
@@ -624,7 +629,7 @@ header {
 
 .box__footer {
   text-align: left;
-  
+
 }
 
 .box__footer h3 {
@@ -698,7 +703,6 @@ header {
   }
 
   .header__container {
-    background-color: hsl(206, 4%, 97%);;
     padding: 0.5rem 3rem;
   }
 

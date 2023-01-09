@@ -24,6 +24,8 @@ let productos = [
 ]
 
 const iconDarkMode = document.querySelector(".dark__mode");
+let body = document.querySelector('body')
+let iconSum = document.querySelector('.fa-sun')
 const products = document.querySelector(".products__print")
 const iconMenu = document.getElementById("icon__menu");
 const menuMobile = document.getElementById("menu__mobile");
@@ -45,19 +47,27 @@ let productCart = {};
 let objCart = {};
 
 // Lógica del DarkMode
-iconDarkMode.addEventListener("click", ()=>{
-    document.body.classList.toggle("darkmode");
+iconDarkMode.addEventListener("click", () => {
+  body.className = "darkmode";
+  iconSum.style.display = 'block'
+  iconDarkMode.style.display = 'none'
+});
+
+iconSum.addEventListener("click", () => {
+  body.className = "body";
+  iconSum.style.display = 'none'
+  iconDarkMode.style.display = 'block'
 });
 // Lógica del DarkMode
 
 
 
 // Función que imprime los productos en el DOM
-const printProducts = ()=>{
+const printProducts = () => {
   let html = ""
 
-  productos.forEach(({ id, name, price, stock, image })=>{
-      html += `   <div class="produc__print">
+  productos.forEach(({ id, name, price, stock, image }) => {
+    html += `   <div class="produc__print">
                       <div class="product__img">
                           <img src="${image}" alt="${name}" />
                           <button class="product__button button__float" id="${id}">+</button>
@@ -79,7 +89,7 @@ printProducts();
 
 
 // Funciones para el menu hamburguesa (mostrar / ocultar)
-const menuSwitch = ()=>{
+const menuSwitch = () => {
   menuMobile.classList.toggle("show__menu");
 }
 
@@ -93,11 +103,11 @@ contentMobileMenu.forEach((link) => {
 
 
 // --------------------- Código para mostrar / ocultar el lateral del carrito de compras
-bagIcon.addEventListener("click", ()=>{
+bagIcon.addEventListener("click", () => {
   shoppingBag.classList.toggle("shopping__bag--active");
 });
 
-closeIcon.addEventListener("click", ()=>{
+closeIcon.addEventListener("click", () => {
   shoppingBag.classList.toggle("shopping__bag--active");
 });
 // --------------------- Código para mostrar / ocultar el lateral del carrito de compras
@@ -110,7 +120,7 @@ function printProductCart() {
   let arrayCart = Object.values(objCart)
   numberProduct.innerText = arrayCart.length;
 
-  if(arrayCart.length===0){
+  if (arrayCart.length === 0) {
     shoppingBagAdd.innerHTML = "";
     shoppingBagAdd.innerHTML = `  <div class="empty__shopping">
                                     <h2>My Shopping Bag</h2>
@@ -122,9 +132,9 @@ function printProductCart() {
                                     </p>
                                   </div>`
   } else {
-    const totalApagar = arrayCart.reduce((acumulador, item)=>{
+    const totalApagar = arrayCart.reduce((acumulador, item) => {
       return acumulador += (item.price) * (item.amount);
-    },0)
+    }, 0)
 
     arrayCart.forEach(({ id, name, price, stock, image, amount }) => {
       html += ` <div class="cart__product">
@@ -134,7 +144,7 @@ function printProductCart() {
                   <div class="products__text" >
                     <span>${name}</span>
                     <p>Stock: ${stock} | <span class="red_color">$${price}</span></p>
-                    <p class="red_color">Subtotal: $${price*amount}</p>
+                    <p class="red_color">Subtotal: $${price * amount}</p>
                     <p>${amount} units</p>
                     <div class="units" id="${id}">
                       <i class='bx bx-minus'></i>
@@ -156,7 +166,7 @@ function printProductCart() {
 
 
 // --------------------- Agrega o muestra por primera vez el amount de los productos en el carrito
-products.addEventListener('click', (e)=>{
+products.addEventListener('click', (e) => {
   if (e.target.classList.contains('button__float')) {
     emptyShopping.style.display = 'none';
 
