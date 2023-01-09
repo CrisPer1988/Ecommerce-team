@@ -42,19 +42,26 @@ const numberProduct = document.getElementById("numberProduct");
 let btnHero = document.querySelector('.btn__hero')
 let numCart = document.querySelector('.num_cart');
 
-
 let productCart = {};
 let objCart = {};
 
 // Lógica del DarkMode
 iconDarkMode.addEventListener("click", () => {
-  verificarStorage();
-  localStorage.setItem("data", "true")
+  body.className = "darkmode";
+  iconSun.style.display = 'block'
+  iconDarkMode.style.display = 'none'
+
+  // verificarStorage();
+  // localStorage.setItem("data", "true")
 });
 
 iconSun.addEventListener("click", () => {
-  verificarStorage();
-  localStorage.setItem("data", "false")
+  body.className = "body";
+  iconSun.style.display = 'none'
+  iconDarkMode.style.display = 'block'
+
+  // verificarStorage();
+  // localStorage.setItem("data", "false")
 });
 // Lógica del DarkMode
 
@@ -116,7 +123,7 @@ closeIcon.addEventListener("click", () => {
 function printProductCart() {
   let html = '';
   let arrayCart = Object.values(objCart)
-  numberProduct.innerText = arrayCart.length;
+  
 
   if (arrayCart.length === 0) {
     shoppingBagAdd.innerHTML = "";
@@ -133,6 +140,12 @@ function printProductCart() {
     const totalApagar = arrayCart.reduce((acumulador, item) => {
       return acumulador += (item.price) * (item.amount);
     }, 0)
+
+    const totalProductos = arrayCart.reduce((acumulador, item) => {
+      return acumulador += (item.amount);
+    }, 0)
+
+    numberProduct.innerText = totalProductos;
 
     arrayCart.forEach(({ id, name, price, stock, image, amount }) => {
       html += ` <div class="cart__product">
@@ -151,12 +164,15 @@ function printProductCart() {
                     </div>
                   </div>
                 </div>
-                <div class="total__cart">
-                  <span>${arrayCart.length} items</span>
-                  <span>$${totalApagar}</span>
-                </div>`
+                `
     })
-    shoppingBagAdd.innerHTML = html;
+    shoppingBagAdd.innerHTML = html + ` <div class="total__cart">
+                                          <div class="price">
+                                            <span>${totalProductos} items</span>
+                                            <span>$${totalApagar}.00</span>
+                                          </div>
+                                          <button class="btn_off">Comprar</button>
+                                        </div>`;
   }
 }
 // --------------------- Código para imprimir los productos seleccionados en el lateral de compras
@@ -166,13 +182,27 @@ function printProductCart() {
 // --------------------- Agrega o muestra por primera vez el amount de los productos en el carrito
 products.addEventListener('click', (e) => {
   if (e.target.classList.contains('button__float')) {
-    emptyShopping.style.display = 'none';
+
+    const id = e.target.id;
 
     let selectProduct = productos.find((item) => {
       return item.id === e.target.id;
     })
 
-    objCart[e.target.id] ? objCart[e.target.id].amount++ : objCart[e.target.id] = { ...selectProduct, amount: 1 }
+    if (objCart[id]) {
+      if (selectProduct.stock === objCart[id].amount) {
+        Swal.fire({
+          title: 'Stock superado',
+          text: 'No hay más artículos disponibles',
+          icon: 'info',
+          confirmButtonText: 'Entendido'
+        })
+      } else {
+        objCart[e.target.id].amount++
+      }
+    } else {
+      objCart[e.target.id] = { ...selectProduct, amount: 1 }
+    }
   }
 
   printProductCart()
@@ -242,79 +272,10 @@ shoppingBagAdd.addEventListener('click', function (e) {
 // --------------------- Eventos para aumentar / disminuir / eliminar amount de carrito de compras
 
 
+
 // Comprobar el LocalStorage
-const verificarStorage = ()=>{
+const verificarStorage = () => {
   let dataStorage = localStorage.getItem("data");
-  if(dataStorage=="true"){
-    // iconDarkMode.click();
-    body.className = "darkmode";
-    iconSun.style.display = 'block'
-    iconDarkMode.style.display = 'none'
-  } else {
-    body.className = "body";
-    iconSun.style.display = 'none'
-    iconDarkMode.style.display = 'block'
-    // iconSun.click();
-  }
 }
 verificarStorage();
 // Comprobar el LocalStorage
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function printTotalProductCart() {
-//   if (!arrayCart.length) {
-//     totalCart.innerHTML = `
-//     <div class="total__cart">
-//     <div class="price">
-//     <span>0 items</span>
-//     <span>$0.00</span>
-//     </div>
-//     <button class="btn_off">Comprar</button>
-//   </div>
-//       `
-//     return
-//   }
-// }
-
-// })
-
-
-// btnHero.addEventListener('click', function (e) {
-//   if (e.target.classList.contains('btn2')) {
-//     printProductCart()
-//   }
-// })
-
-// totalCart.addEventListener('click', function (e) {
-//   if (e.target.classList.contains('btn_buy')) {
-//     let newArray = [];
-
-//     productos.forEach((item) => {
-//       if (item.id === objCart[item.id]?.id) {
-//         newArray.push({
-//           ...item,
-//           stock: item.stock - objCart[item.id].amount
-//         })
-//       } else {
-//         newArray.push(item)
-//       }
-//     })
-
-//     productos = newArray;
-//     objCart = {};
-
-//     printProducts()
-//     printProductCart()
-//   }
-// })
