@@ -97,12 +97,35 @@ closeIcon.addEventListener("click", function () {
   observer.observe(observador);
 })();
 
-// ----------------------------------------------CODIGO ALEX
+// ----------------------------------------------CODIGO ALEX / CARRITO DE COMPRA
 
 let objCart = {};
 
 let emptyShopping = document.querySelector('.empty__shopping');
 let shoppingBagAdd = document.querySelector('.shopping__bag--container')
+let totalCart = document.querySelector('.total__cart')
+let btnHero = document.querySelector('.btn__hero')
+let numCart = document.querySelector('.num_cart');
+
+function printNumCart() {
+  const newArray = Object.values(objCart);
+
+  let sum = 0
+
+  if (!newArray.length) {
+
+    numCart.textContent = 0
+
+    return
+  }
+
+  newArray.forEach(({ amount }) => {
+    sum += amount
+  })
+
+
+  numCart.textContent = sum
+}
 
 function printProductCart() {
   let html = '';
@@ -119,35 +142,65 @@ function printProductCart() {
 
             <div class="products__text" >
               <span>${name}</span>
-              <p>Stock: ${stock} | <span class="red_color">$24.00</span></p>
-              <p class="red_color">Subtotal: $${price}</p>
+              <p class="red_color">Price: $${price}</p>
               <p>${amount} units</p>
-
               <div class="units" id="${id}">
-                <i class='bx bx-minus'></i>
-                <i class='bx bx-plus'></i>
-                <i class='bx bx-trash red_color'></i>
-              </div>
+              <i class='bx bx-minus'></i>
+              <i class='bx bx-plus'></i>
+              <i class='bx bx-trash red_color'></i>
+            </div>
 
             </div>
 
           </div>
 
-          <div class="total__cart">
-
-          <span>$ items</span>
-          <span>$0.00 </span>
-
-        </div>
         `
 
     shoppingBagAdd.innerHTML = html;
   })
 }
 
+function printTotalProductCart() {
+  let arrayCart = Object.values(objCart);
+
+  if (!arrayCart.length) {
+    totalCart.innerHTML = `
+    <div class="total__cart">
+    <div class="price">
+    <span>0 items</span>
+    <span>$0.00</span>
+    </div>
+    <button class="btn_off">Comprar</button>
+  </div>
+      `
+    return
+  }
+
+  let sum = 0;
+  let totalAmount = 0
+
+  arrayCart.forEach(({ amount, price }) => {
+    sum += amount * price
+  })
+
+  arrayCart.forEach(({ amount }) => {
+    totalAmount += amount
+  })
+
+  totalCart.innerHTML = `
+  <div class="total__cart">
+  <div class="price">
+  <span>${totalAmount} items</span>
+  <span>$${sum},00</span>
+  </div>
+  <button class="btn_buy">Comprar</button>
+  </div>
+      `
+}
+
 products.addEventListener('click', function (e) {
   if (e.target.classList.contains('button__float')) {
-    emptyShopping.style.display = 'none';
+    // emptyShopping.style.display = 'none';
 
     const itemId = e.target.id;
 
@@ -155,14 +208,33 @@ products.addEventListener('click', function (e) {
       return item.id === itemId
     })
 
-    objCart[itemId] ? objCart[itemId].amount++ : objCart[itemId] = { ...selectProduct, amount: 1 }
+    if (objCart[itemId]) {
+
+      let selectProduct = productos.find((item) => {
+        return item.id === itemId
+      })
+
+      if (selectProduct.stock === objCart[itemId].amount) {
+        alert('No hay mas articulos disponibles')
+      } else {
+        objCart[itemId].amount++
+      }
+    } else {
+      objCart[itemId] = {
+        ...selectProduct,
+        amount: 1
+      }
+    }
   }
 
   printProductCart()
-
+  printTotalProductCart()
+  printNumCart()
 })
 
 shoppingBagAdd.addEventListener('click', function (e) {
+
+  let arrayCart = Object.values(objCart)
 
   if (e.target.classList.contains('bx-plus')) {
     const id = e.target.parentElement.id
@@ -175,20 +247,18 @@ shoppingBagAdd.addEventListener('click', function (e) {
       alert('No hay mas articulos disponibles')
     } else {
       objCart[id].amount++
-      console.log(shoppingBagAdd.length);
     }
   }
 
   if (e.target.classList.contains('bx-minus')) {
     const id = e.target.parentElement.id
 
+    // ERROR, NO DEJA ELIMINAR SI ES EL ULTIMO PRODUCTO EN EL CARRITO
+
     if (objCart[id].amount === 1) {
       const alert = confirm('¿Esta seguro de elminiar el producto?')
-      if (!alert) return
+      if (alert) delete objCart[id]
 
-      // ERROR, NO DEJA ELIMINAR SI ES EL ULTIMO PRODUCTO EN EL CARRITO
-
-      delete objCart[id]
     } else {
       objCart[id].amount--
     }
@@ -206,5 +276,42 @@ shoppingBagAdd.addEventListener('click', function (e) {
   }
 
   printProductCart()
+  printTotalProductCart()
+  printNumCart()
 })
 
+btnHero.addEventListener('click', function (e) {
+  if (e.target.classList.contains('btn2')) {
+
+    printProductCart()
+  }
+})
+
+totalCart.addEventListener('click', function (e) {
+  if (e.target.classList.contains('btn_buy')) {
+    let newArray = [];
+
+    productos.forEach((item) => {
+      if (item.id === objCart[item.id]?.id) {
+        newArray.push({
+          ...item,
+          stock: item.stock - objCart[item.id].amount
+        })
+      } else {
+        newArray.push(item)
+      }
+    })
+
+    productos = newArray;
+    objCart = {};
+
+    printProducts()
+    printProductCart()
+    printTotalProductCart()
+    printNumCart()
+  }
+})
+
+printProducts()
+printTotalProductCart()
+printNumCart()
