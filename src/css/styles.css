@@ -193,7 +193,7 @@ header {
 .left__header a {
   text-decoration: none;
   font-weight: 700;
-  color: black;
+  color: var(--title-color);
   letter-spacing: 2px;
 }
 
