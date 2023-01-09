@@ -48,19 +48,11 @@ let objCart = {};
 
 // Lógica del DarkMode
 iconDarkMode.addEventListener("click", () => {
-  body.className = "darkmode";
-  iconSun.style.display = 'block'
-  iconDarkMode.style.display = 'none'
-  
   verificarStorage();
   localStorage.setItem("data", "true")
 });
 
 iconSun.addEventListener("click", () => {
-  body.className = "body";
-  iconSun.style.display = 'none'
-  iconDarkMode.style.display = 'block'
-  
   verificarStorage();
   localStorage.setItem("data", "false")
 });
@@ -253,11 +245,16 @@ shoppingBagAdd.addEventListener('click', function (e) {
 // Comprobar el LocalStorage
 const verificarStorage = ()=>{
   let dataStorage = localStorage.getItem("data");
-  console.log(dataStorage)
   if(dataStorage=="true"){
-    
+    // iconDarkMode.click();
+    body.className = "darkmode";
+    iconSun.style.display = 'block'
+    iconDarkMode.style.display = 'none'
   } else {
-
+    body.className = "body";
+    iconSun.style.display = 'none'
+    iconDarkMode.style.display = 'block'
+    // iconSun.click();
   }
 }
 verificarStorage();
