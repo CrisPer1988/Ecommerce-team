@@ -1,54 +1,86 @@
-import { productos } from "./data.js";
 
-//-------------DARKMODE--------------------
+let productos = [
+  {
+    id: crypto.randomUUID(),
+    name: "Buzo rojo",
+    price: "14.00",
+    stock: 10,
+    image: "./src/images/featured1.png",
+  },
+  {
+    id: crypto.randomUUID(),
+    name: "Buzo negro",
+    price: "24.00",
+    stock: 15,
+    image: "./src/images/featured2.png",
+  },
+  {
+    id: crypto.randomUUID(),
+    name: "Buzo gris",
+    price: "24.00",
+    stock: 10,
+    image: "./src/images/featured3.png",
+  },
+]
 
 const iconDarkMode = document.querySelector(".dark__mode");
-
-iconDarkMode.addEventListener("click", function () {
-    document.body.classList.toggle("darkmode");
-});
-
-
 const products = document.querySelector(".products__print")
-let productCart = {};
-
 const iconMenu = document.getElementById("icon__menu");
 const menuMobile = document.getElementById("menu__mobile");
 const contentMobileMenu = document.querySelectorAll("#menu__mobile a");
-
 const shoppingBag = document.querySelector(".shopping__bag--summary");
-
-const header = document.querySelector(".header__container");
-
 // const shoppingBag = document.querySelector("#shopping__bag");
-    // productos.forEach(function({ id, name, price, stock, image }){
-    //     html += `   <div class="produc__print">
-    //                     <div class="product__img">
-    //                         <img src="${image}" alt="${name}" />
-    //                         <div class="product__button" id="${id}">
-    //                             <button class="product__button button__float">+</button>
-    //                         </div>
-    //                     </div>
-
-    //                     <div class="product__info">
-    //                         <p>${name}</p>
-    //                         <p>Precio: ${price}</p>
-    //                         <p>Stock: ${stock}</p>
-    //                     </div>
-    //                 </div>`;
-    // })
-
-    // products.innerHTML = html
-// } 
-// printProducts()
+const header = document.querySelector(".header__container");
+const bagIcon = document.querySelector(".fa-bag-shopping");
+const closeIcon = document.querySelector(".bx-x");
+// const shoppingBagAdd = document.querySelector('.shopping__bag--container')
+// const emptyShopping = document.querySelector('.empty__shopping');
+// const totalCart = document.querySelector(".total__cart");
+// const numberProduct = document.getElementById("numberProduct");
+// let btnHero = document.querySelector('.btn__hero')
+// let numCart = document.querySelector('.num_cart');
 
 
-// let iconMenu = document.getElementById("icon__menu");
-// let menuMobile = document.getElementById("menu__mobile");
-// let contentMobileMenu = document.querySelectorAll("#menu__mobile a");
+let productCart = {};
+// let objCart = {};
 
-// let header = document.querySelector(".header__container");
+// Lógica del DarkMode
+iconDarkMode.addEventListener("click", function () {
+    document.body.classList.toggle("darkmode");
+});
+// Lógica del DarkMode
 
+
+
+// Función que imprime los productos en el DOM
+function printProducts() {
+  let html = ""
+
+  productos.forEach(function({ id, name, price, stock, image }){
+      html += `   <div class="produc__print">
+                      <div class="product__img">
+                          <img src="${image}" alt="${name}" />
+                          <div class="product__button" id="${id}">
+                              <button class="product__button button__float">+</button>
+                          </div>
+                      </div>
+
+                      <div class="product__info">
+                          <p>${name}</p>
+                          <p>Precio: ${price}</p>
+                          <p>Stock: ${stock}</p>
+                      </div>
+                  </div>`;
+  })
+
+  products.innerHTML = html
+}
+printProducts();
+// Función que imprime los productos en el DOM
+
+
+
+// Funciones para el menu hamburguesa (mostrar / ocultar)
 function closeMenu() {
   menuMobile.classList.toggle("show__menu");
 }
@@ -58,70 +90,7 @@ iconMenu.addEventListener("click", closeMenu);
 contentMobileMenu.forEach((link) => {
   link.addEventListener("click", closeMenu);
 });
-
-
-const bagIcon = document.querySelector(".fa-bag-shopping");
-const closeIcon = document.querySelector(".bx-x");
-
-const shoppingBagAdd = document.querySelector('.shopping__bag--container')
-const emptyShopping = document.querySelector('.empty__shopping');
-
-// const totalCart = document.querySelector(".total__cart");
-const numberProduct = document.getElementById("numberProduct");
-
-let objCart = {};
-
-// --------------------- Mostrando lista de productos en el DOM
-function printProducts() {
-  let html = "";
-
-  productos.forEach(({ id, name, price, stock, image })=>{
-    html += ` <div class="produc__print">
-                  <div class="product__img">
-                    <img src="${image}" alt="${name}" />
-                    <button class="product__button button__float" id="${id}">+</button>
-                  </div>
-                  <div class="product__info">
-                    <p>${name}</p>
-                    <p>Precio: ${price}</p>
-                    <p>Stock: ${stock}</p>
-                  </div>
-              </div>`;
-  })
-
-  products.innerHTML = html
-}
-
-printProducts();
-// --------------------- Mostrando lista de productos en el DOM
-
-
-
-// --------------------- Funcionalidad de mostrar / ocultar el menu en mobile
-function menuSwitch() {
-  menuMobile.classList.toggle("show__menu");
-}
-
-iconMenu.addEventListener("click", menuSwitch);
-
-contentMobileMenu.forEach((link) => {
-  link.addEventListener("click", menuSwitch);
-});
-// --------------------- Funcionalidad de mostrar / ocultar el menu en mobile
-
-
-
-// --------------------- Función con IntersectionObserver
-(() => {
-  let observador = document.querySelector("observador");
-
-  const observer = new IntersectionObserver(() => {
-    header.classList.toggle('transparent')
-  }, { root: null });
-
-  observer.observe(observador);
-})();
-// --------------------- Función con IntersectionObserver
+// Funciones para el menu hamburguesa (mostrar / ocultar)
 
 
 
@@ -137,129 +106,381 @@ closeIcon.addEventListener("click", ()=>{
 
 
 
+
+
+
+
+
+
+
+
+
+
+// closeIcon.addEventListener("click", function () {
+//   shoppingBag.classList.toggle("shopping__bag--active");
+// });
+
+
+// function printNumCart() {
+//   const newArray = Object.values(objCart);
+
+//   let sum = 0
+
+//   if (!newArray.length) {
+//     numCart.textContent = 0
+//     return
+//   }
+
+//   newArray.forEach(({ amount }) => {
+//     sum += amount
+//   })
+
+//   numCart.textContent = sum
+// }
+
+// // function printProductCart() {
+// //   let html = '';
+
+// //   let arrayCart = Object.values(objCart)
+
+// //   arrayCart.forEach(({ id, name, price, stock, image, amount }) => {
+// //     html += `
+// //         <div class="cart__product">
+
+// //             <div class="product__image">
+// //               <img src="${image}" alt="">
+// //             </div>
+
+// //             <div class="products__text" >
+// //               <span>${name}</span>
+// //               <p class="red_color">Price: $${price}</p>
+// //               <p>${amount} units</p>
+// //               <div class="units" id="${id}">
+// //               <i class='bx bx-minus'></i>
+// //               <i class='bx bx-plus'></i>
+// //               <i class='bx bx-trash red_color'></i>
+// //             </div>
+// //             </div>
+// //           </div>
+// //         `
+// //     shoppingBagAdd.innerHTML = html;
+// //   })
+// //   products.innerHTML = html
+// // }
+
+
+
+
+
+
+
+
+
+
+
 // --------------------- Código para imprimir los productos seleccionados en el lateral de compras
-function printProductCart() {
-  let html = '';
-  let arrayCart = Object.values(objCart)
-  numberProduct.innerText = arrayCart.length;
+// function printProductCart() {
+//   let html = '';
+//   let arrayCart = Object.values(objCart)
+//   numberProduct.innerText = arrayCart.length;
 
-  if(arrayCart.length===0){
-    shoppingBagAdd.innerHTML = "";
-    shoppingBagAdd.innerHTML = `  <div class="empty__shopping">
-                                    <h2>My Shopping Bag</h2>
-                                    <img src="./src/images/empty-cart.png" alt="empty bag" />
-                                    <h2>Your bag is empty</h2>
-                                    <p>
-                                      You can add items to your shopping bag by clicking on the "+"
-                                      button on the products page.
-                                    </p>
-                                  </div>`
-  } else {
-    const totalApagar = arrayCart.reduce((acumulador, item)=>{
-      return acumulador += (item.price) * (item.amount);
-    },0)
+//   if(arrayCart.length===0){
+//     shoppingBagAdd.innerHTML = "";
+//     shoppingBagAdd.innerHTML = `  <div class="empty__shopping">
+//                                     <h2>My Shopping Bag</h2>
+//                                     <img src="./src/images/empty-cart.png" alt="empty bag" />
+//                                     <h2>Your bag is empty</h2>
+//                                     <p>
+//                                       You can add items to your shopping bag by clicking on the "+"
+//                                       button on the products page.
+//                                     </p>
+//                                   </div>`
+//   } else {
+//     const totalApagar = arrayCart.reduce((acumulador, item)=>{
+//       return acumulador += (item.price) * (item.amount);
+//     },0)
 
-    arrayCart.forEach(({ id, name, price, stock, image, amount }) => {
-      html += ` <div class="cart__product">
-                  <div class="product__image">
-                    <img src="${image}" alt="${name}">
-                  </div>
-                  <div class="products__text" >
-                    <span>${name}</span>
-                    <p>Stock: ${stock} | <span class="red_color">$${price}</span></p>
-                    <p class="red_color">Subtotal: $${price*amount}</p>
-                    <p>${amount} units</p>
-                    <div class="units" id="${id}">
-                      <i class='bx bx-minus'></i>
-                      <i class='bx bx-plus'></i>
-                      <i class='bx bx-trash red_color'></i>
-                    </div>
-                  </div>
-                </div>
-                <div class="total__cart">
-                  <span>${arrayCart.length} items</span>
-                  <span>$${totalApagar}</span>
-                </div>`
-    })
-    shoppingBagAdd.innerHTML = html;
-  }
-}
+//     arrayCart.forEach(({ id, name, price, stock, image, amount }) => {
+//       html += ` <div class="cart__product">
+//                   <div class="product__image">
+//                     <img src="${image}" alt="${name}">
+//                   </div>
+//                   <div class="products__text" >
+//                     <span>${name}</span>
+//                     <p>Stock: ${stock} | <span class="red_color">$${price}</span></p>
+//                     <p class="red_color">Subtotal: $${price*amount}</p>
+//                     <p>${amount} units</p>
+//                     <div class="units" id="${id}">
+//                       <i class='bx bx-minus'></i>
+//                       <i class='bx bx-plus'></i>
+//                       <i class='bx bx-trash red_color'></i>
+//                     </div>
+//                   </div>
+//                 </div>
+//                 <div class="total__cart">
+//                   <span>${arrayCart.length} items</span>
+//                   <span>$${totalApagar}</span>
+//                 </div>`
+//     })
+//     shoppingBagAdd.innerHTML = html;
+//   }
+// }
 // --------------------- Código para imprimir los productos seleccionados en el lateral de compras
 
 
 
-// --------------------- Agrega o muestra por primera vez el amount de los productos en el carrito
-products.addEventListener('click', (e)=>{
-  if (e.target.classList.contains('button__float')) {
-    emptyShopping.style.display = 'none';
-
-    let selectProduct = productos.find((item) => {
-      return item.id === e.target.id
-    })
-
-    objCart[e.target.id] ? objCart[e.target.id].amount++ : objCart[e.target.id] = { ...selectProduct, amount: 1 }
-  }
-
-  printProductCart()
-})
-// --------------------- Agrega o muestra por primera vez el amount de los productos en el carrito
 
 
+// function printProductCart() {
+//   let html = '';
 
-// --------------------- Eventos para aumentar / disminuir / eliminar amount de carrito de compras
-shoppingBagAdd.addEventListener('click', function (e) {
+//   let arrayCart = Object.values(objCart)
 
-  const id = e.target.parentElement.id
+//   arrayCart.forEach(({ id, name, price, stock, image, amount }) => {
+//     html += `
+//         <div class="cart__product">
 
-  let selectProduct = productos.find((item) => {
-    return item.id === id
-  })
+//             <div class="product__image">
+//               <img src="${image}" alt="">
+//             </div>
 
-  if (e.target.classList.contains('bx-plus')) {
-    if (selectProduct.stock === objCart[id].amount) {
-      Swal.fire({
-        title: 'Stock superado',
-        text: 'No hay más artículos disponibles',
-        icon: 'info',
-        confirmButtonText: 'Entendido'
-      })
-    } else {
-      objCart[id].amount++
-    }
-    printProductCart()
-  }
+//             <div class="products__text" >
+//               <span>${name}</span>
+//               <p class="red_color">Price: $${price}</p>
+//               <p>${amount} units</p>
+//               <div class="units" id="${id}">
+//               <i class='bx bx-minus'></i>
+//               <i class='bx bx-plus'></i>
+//               <i class='bx bx-trash red_color'></i>
+//             </div>
 
-  if (e.target.classList.contains('bx-minus')) {
-    if (objCart[id].amount === 1) {
-      Swal.fire({
-        text: '¿Está seguro de eliminar el producto?',
-        icon: 'question',
-        confirmButtonText: 'Entendido'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          delete objCart[id]
-          printProductCart()
-        }
-      })
-    } else {
-      objCart[id].amount--;
-      printProductCart()
-    }
-  }
+//             </div>
 
-  if (e.target.classList.contains('bx-trash')) {
-    Swal.fire({
-      title: 'Quitar producto',
-      text: '¿Está seguro de quitar el producto de su carrito?',
-      icon: 'question',
-      confirmButtonText: 'Sí',
-      cancelButtonText: 'No'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        delete objCart[id]
-        printProductCart()
-      }
-    })
-  }
-})
-// --------------------- Eventos para aumentar / disminuir / eliminar amount de carrito de compras
+//           </div>
+
+//         `
+
+//     shoppingBagAdd.innerHTML = html;
+//   })
+// }
+
+// products.addEventListener('click', function (e) {
+//   if (e.target.classList.contains('button__float')) {
+//     // emptyShopping.style.display = 'none';
+
+//     const itemId = e.target.id;
+
+//     let selectProduct = productos.find((item) => {
+//       return item.id === itemId
+//     })
+
+//     if (objCart[itemId]) {
+
+//       let selectProduct = productos.find((item) => {
+//         return item.id === itemId
+//       })
+
+//       if (selectProduct.stock === objCart[itemId].amount) {
+//         alert('No hay mas articulos disponibles')
+//       } else {
+//         objCart[itemId].amount++
+//       }
+//     } else {
+//       objCart[itemId] = {
+//         ...selectProduct,
+//         amount: 1
+//       }
+//     }
+//   }
+
+//   printProductCart()
+//   // printTotalProductCart()
+//   // printNumCart()
+// })
+
+
+// // --------------------- Agrega o muestra por primera vez el amount de los productos en el carrito
+// products.addEventListener('click', (e)=>{
+// function printTotalProductCart() {
+//   let arrayCart = Object.values(objCart);
+
+//   if (!arrayCart.length) {
+//     totalCart.innerHTML = `
+//     <div class="total__cart">
+//     <div class="price">
+//     <span>0 items</span>
+//     <span>$0.00</span>
+//     </div>
+//     <button class="btn_off">Comprar</button>
+//   </div>
+//       `
+//     return
+//   }
+
+//   let sum = 0;
+//   let totalAmount = 0
+
+//   arrayCart.forEach(({ amount, price }) => {
+//     sum += amount * price
+//   })
+
+//   arrayCart.forEach(({ amount }) => {
+//     totalAmount += amount
+//   })
+
+//   totalCart.innerHTML = `
+//   <div class="total__cart">
+//   <div class="price">
+//   <span>${totalAmount} items</span>
+//   <span>$${sum},00</span>
+//   </div>
+//   <button class="btn_buy">Comprar</button>
+//   </div>
+//       `
+// }
+
+// products.addEventListener('click', function (e) {
+//   if (e.target.classList.contains('button__float')) {
+//     // emptyShopping.style.display = 'none';
+
+//     let selectProduct = productos.find((item) => {
+//       return item.id === e.target.id
+//     })
+
+//     objCart[e.target.id] ? objCart[e.target.id].amount++ : objCart[e.target.id] = { ...selectProduct, amount: 1 }
+//   }
+
+//   printProductCart()
+//     if (objCart[itemId]) {
+
+//       let selectProduct = productos.find((item) => {
+//         return item.id === itemId
+//       })
+
+//       if (selectProduct.stock === objCart[itemId].amount) {
+//         alert('No hay mas articulos disponibles')
+//       } else {
+//         objCart[itemId].amount++
+//       }
+//     } else {
+//       objCart[itemId] = {
+//         ...selectProduct,
+//         amount: 1
+//       }
+//     }
+//   }
+
+//   printProductCart()
+//   printTotalProductCart()
+//   printNumCart()
+// })
+// // --------------------- Agrega o muestra por primera vez el amount de los productos en el carrito
+
+
+
+// // --------------------- Eventos para aumentar / disminuir / eliminar amount de carrito de compras
+// shoppingBagAdd.addEventListener('click', function (e) {
+
+//   const id = e.target.parentElement.id
+
+//   let selectProduct = productos.find((item) => {
+//     return item.id === id
+//   })
+//   let arrayCart = Object.values(objCart)
+
+//   if (e.target.classList.contains('bx-plus')) {
+//     if (selectProduct.stock === objCart[id].amount) {
+//       Swal.fire({
+//         title: 'Stock superado',
+//         text: 'No hay más artículos disponibles',
+//         icon: 'info',
+//         confirmButtonText: 'Entendido'
+//       })
+//     } else {
+//       objCart[id].amount++
+//     }
+//     printProductCart()
+//   }
+
+//   if (e.target.classList.contains('bx-minus')) {
+//     if (objCart[id].amount === 1) {
+//       Swal.fire({
+//         text: '¿Está seguro de eliminar el producto?',
+//         icon: 'question',
+//         confirmButtonText: 'Entendido'
+//       }).then((result) => {
+//         if (result.isConfirmed) {
+//           delete objCart[id]
+//           printProductCart()
+//         }
+//       })
+//     const id = e.target.parentElement.id
+
+//     // ERROR, NO DEJA ELIMINAR SI ES EL ULTIMO PRODUCTO EN EL CARRITO
+
+//     if (objCart[id].amount === 1) {
+//       const alert = confirm('¿Esta seguro de elminiar el producto?')
+//       if (alert) delete objCart[id]
+
+//     } else {
+//       objCart[id].amount--;
+//       printProductCart()
+//     }
+//   }
+
+//   if (e.target.classList.contains('bx-trash')) {
+//     Swal.fire({
+//       title: 'Quitar producto',
+//       text: '¿Está seguro de quitar el producto de su carrito?',
+//       icon: 'question',
+//       confirmButtonText: 'Sí',
+//       cancelButtonText: 'No'
+//     }).then((result) => {
+//       if (result.isConfirmed) {
+//         delete objCart[id]
+//         printProductCart()
+//       }
+//     })
+//   }
+// })
+// // --------------------- Eventos para aumentar / disminuir / eliminar amount de carrito de compras
+
+//   printProductCart()
+//   printTotalProductCart()
+//   printNumCart()
+// })
+
+// btnHero.addEventListener('click', function (e) {
+//   if (e.target.classList.contains('btn2')) {
+
+//     printProductCart()
+//   }
+// })
+
+// totalCart.addEventListener('click', function (e) {
+//   if (e.target.classList.contains('btn_buy')) {
+//     let newArray = [];
+
+//     productos.forEach((item) => {
+//       if (item.id === objCart[item.id]?.id) {
+//         newArray.push({
+//           ...item,
+//           stock: item.stock - objCart[item.id].amount
+//         })
+//       } else {
+//         newArray.push(item)
+//       }
+//     })
+
+//     productos = newArray;
+//     objCart = {};
+
+//     printProducts()
+//     printProductCart()
+//     printTotalProductCart()
+//     printNumCart()
+//   }
+// })
+
+// printTotalProductCart()
+// printNumCart()

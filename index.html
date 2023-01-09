@@ -13,6 +13,8 @@
 <body>
   <div class="container" id="home">
     <observador></observador>
+
+
     <header>
       <div class="header__container">
         <div class="left__header">
@@ -68,7 +70,7 @@
           <i class="fa-regular fa-moon dark__mode"></i>
           <i class="fa-regular fa-sun"></i>
           <i class="fa-solid fa-bag-shopping">
-            <span id="numberProduct">0</span>
+            <span id="numberProduct" class="num_cart">0</span>
           </i>
           <i id="icon__menu" class="fa-solid fa-table-cells-large"></i>
         </div>
@@ -93,6 +95,11 @@
 
         </div>
 
+        <div class="total__cart">
+
+        </div>
+        <!-- CODIGO ALEX -->
+
       </div>
   </div>
   <!-- CODIGO DE ALEJANDRO -->
@@ -115,8 +122,8 @@
         imported from the 2022 series, with a modern design.
       </p>
       <span> $14.00 </span>
-      <div class="btn">
-        <button class="btn1">Discover</button>
+      <div class="btn btn__hero">
+        <button onclick="location.href='#product'" class="btn1">Discover</button>
         <button class="btn2">ADD TO CART</button>
       </div>
     </div>
@@ -235,7 +242,7 @@
 
   <script src="https://kit.fontawesome.com/18f97b9b5d.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="./src/js/main.js" type="module"></script>
+  <script src="./src/js/main.js"></script>
 </body>
 
 </html>
