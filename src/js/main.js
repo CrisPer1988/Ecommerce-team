@@ -25,7 +25,7 @@ let productos = [
 
 const iconDarkMode = document.querySelector(".dark__mode");
 let body = document.querySelector('body')
-let iconSum = document.querySelector('.fa-sun')
+let iconSun = document.querySelector('.fa-sun')
 const products = document.querySelector(".products__print")
 const iconMenu = document.getElementById("icon__menu");
 const menuMobile = document.getElementById("menu__mobile");
@@ -49,14 +49,20 @@ let objCart = {};
 // Lógica del DarkMode
 iconDarkMode.addEventListener("click", () => {
   body.className = "darkmode";
-  iconSum.style.display = 'block'
+  iconSun.style.display = 'block'
   iconDarkMode.style.display = 'none'
+  
+  verificarStorage();
+  localStorage.setItem("data", "true")
 });
 
-iconSum.addEventListener("click", () => {
+iconSun.addEventListener("click", () => {
   body.className = "body";
-  iconSum.style.display = 'none'
+  iconSun.style.display = 'none'
   iconDarkMode.style.display = 'block'
+  
+  verificarStorage();
+  localStorage.setItem("data", "false")
 });
 // Lógica del DarkMode
 
@@ -242,6 +248,20 @@ shoppingBagAdd.addEventListener('click', function (e) {
   }
 })
 // --------------------- Eventos para aumentar / disminuir / eliminar amount de carrito de compras
+
+
+// Comprobar el LocalStorage
+const verificarStorage = ()=>{
+  let dataStorage = localStorage.getItem("data");
+  console.log(dataStorage)
+  if(dataStorage=="true"){
+    
+  } else {
+
+  }
+}
+verificarStorage();
+// Comprobar el LocalStorage
 
 
 
