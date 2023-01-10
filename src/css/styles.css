@@ -23,12 +23,11 @@ body.darkmode {
   --title-color: hsl(0, 31%, 90%);
   --text-color: white;
   --text-color-light: hsl(0, 24%, 91%);
-  --body-color: #1F1D2A;
+  --body-color: #1f1d2a;
   --container-color: #fff;
   --border-color: hsl(0, 0%, 94%);
 
   color: white;
-
 }
 
 * {
@@ -43,7 +42,7 @@ body {
   background-color: var(--body-color);
   scroll-behavior: smooth;
 
-  transition: all .7s;
+  transition: all 0.7s;
 }
 
 /* ------------------ANIMATION-LOAD--------------------- */
@@ -148,7 +147,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
- /* AGREGUE LA SOMBRA DEL NAV */
+  /* AGREGUE LA SOMBRA DEL NAV */
   padding: 0.2rem 2rem 0.1rem 1rem;
 }
 
@@ -160,8 +159,6 @@ header {
 .fa-table-cells-large {
   position: relative;
 }
-
-
 
 /* AGREGUE EL MENU HAMBURGUESA */
 
@@ -182,7 +179,6 @@ header {
 
 .header__container .show__menu {
   right: 0;
-
 }
 
 .menu__mobile a {
@@ -193,18 +189,27 @@ header {
   text-transform: uppercase;
 }
 
+.menu__mobile a:hover {
+  color: var(--first-color); /* nuevos cambios */
+}
+
 .left__header {
   flex: 1;
   display: flex;
   align-items: center;
   gap: 0.2rem;
-
 }
 
 .left__header {
   text-decoration: none;
   font-weight: 700;
   letter-spacing: 2px;
+}
+
+.left__header a:hover {
+  /* nuevos cambios */
+  cursor: pointer;
+  color: var(--first-color);
 }
 
 .right__header .fa-sun {
@@ -221,7 +226,6 @@ header {
   align-items: center;
   justify-content: flex-end;
   gap: 1rem;
-
 }
 
 .right__header i {
@@ -257,8 +261,8 @@ header {
   right: -100%;
   padding: 1rem;
   background: var(--body-color);
-  box-shadow: -2px 40px 20px rgb(0 0 0 / .2);
-    width: 30%;
+  box-shadow: -2px 40px 20px rgb(0 0 0 / 0.2);
+  width: 30%;
   height: 100vh;
   transition: right 0.5s;
 }
@@ -295,7 +299,7 @@ header {
 .empty__shopping {
   text-align: center;
   display: grid;
-  gap: .5rem;
+  gap: 0.5rem;
   height: 70%;
 }
 
@@ -326,7 +330,7 @@ header {
   justify-content: space-between;
   align-items: center;
   gap: 40px;
-  padding: .5rem 2rem;
+  padding: 0.5rem 2rem;
 }
 
 .total__cart span {
@@ -338,8 +342,8 @@ header {
 .btn_off {
   width: 85%;
   margin: auto;
-  padding: .5rem 1rem;
-  border-radius: .2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.2rem;
   border: none;
   background: var(--first-color);
 
@@ -473,7 +477,7 @@ header {
   background-color: var(--text-color-light);
   border: none;
   cursor: pointer;
-  transition: color .5s, background-color .5s;
+  transition: color 0.5s, background-color 0.5s;
 }
 
 .btn1:hover {
@@ -488,7 +492,7 @@ header {
   color: white;
   font-weight: 700;
   cursor: pointer;
-  transition: background-color .5s;
+  transition: background-color 0.5s;
 }
 
 .btn2:hover {
@@ -554,6 +558,12 @@ header {
   position: relative;
 }
 
+.product__img img:hover {
+  cursor: pointer;
+  transform: translateY(-10px);
+  transition: 0.5s;
+}
+
 .button__float {
   position: absolute;
   bottom: -10px;
@@ -613,7 +623,6 @@ header {
 
 .box__footer {
   text-align: left;
-
 }
 
 .box__footer h3 {
@@ -631,6 +640,11 @@ header {
 .box__footer p a {
   color: var(--text-color);
   text-decoration: none;
+}
+
+.box__footer p a:hover {
+  /* Nuevo cambio */
+  color: var(--title-color);
 }
 
 .social_icons a {
@@ -674,8 +688,6 @@ header {
     margin-left: 2rem;
     /*ADD MARGIN*/
   }
-
-
 
   .header {
     max-width: 70%;
