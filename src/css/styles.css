@@ -740,6 +740,7 @@ header {
     display: grid;
     gap: 0.5rem;
     margin-top: 100px;
+    height: 300px;
     /* REDUJE EL MARGEN ENTRE EL TEXTO */
   }
 
