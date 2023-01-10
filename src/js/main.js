@@ -281,6 +281,12 @@ shoppingBagAdd.addEventListener('click', function (e) {
           })
           return
         }
+        Swal.fire({
+          title: 'Compra realizada con exito',
+          text: 'Gracias por su compra',
+          icon: 'success',
+          confirmButtonText: 'Entendido'
+        })
         newArray.push({
           ...item,
           stock: item.stock - objCart[item.id].amount
