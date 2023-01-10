@@ -121,7 +121,7 @@ closeIcon.addEventListener("click", () => {
 function printProductCart() {
   let html = '';
   let arrayCart = Object.values(objCart)
-  
+
 
   if (arrayCart.length === 0) {
     shoppingBagAdd.innerHTML = "";
@@ -169,7 +169,7 @@ function printProductCart() {
                                             <span>${totalProductos} items</span>
                                             <span>$${totalApagar}.00</span>
                                           </div>
-                                          <button class="btn_off">Comprar</button>
+                                          <button class="btn_buy">Comprar</button>
                                         </div>`;
   }
 }
@@ -188,7 +188,7 @@ products.addEventListener('click', (e) => {
     })
 
     if (objCart[id]) {
-      if (selectProduct.stock === objCart[id].amount) {
+      if (selectProduct.stock === objCart[id].amount || selectProduct.stock < 1) {
         Swal.fire({
           title: 'Stock superado',
           text: 'No hay más artículos disponibles',
@@ -221,7 +221,7 @@ shoppingBagAdd.addEventListener('click', function (e) {
   // let arrayCart = Object.values(objCart)
 
   if (e.target.classList.contains('bx-plus')) {
-    if (selectProduct.stock === objCart[id].amount) {
+    if (selectProduct.stock === objCart[id].amount || selectProduct.stock < 1) {
       Swal.fire({
         title: 'Stock superado',
         text: 'No hay más artículos disponibles',
@@ -266,6 +266,36 @@ shoppingBagAdd.addEventListener('click', function (e) {
       }
     })
   }
+
+  if (e.target.classList.contains('btn_buy')) {
+    let newArray = [];
+
+    productos.forEach((item) => {
+      if (item.id === objCart[item.id]?.id) {
+        if (item.stock < 1) {
+          Swal.fire({
+            title: 'Stock superado',
+            text: 'No hay más artículos disponibles',
+            icon: 'info',
+            confirmButtonText: 'Entendido'
+          })
+          return
+        }
+        newArray.push({
+          ...item,
+          stock: item.stock - objCart[item.id].amount
+        })
+      } else {
+        newArray.push(item)
+      }
+    })
+
+    productos = newArray;
+    objCart = {};
+
+    printProducts();
+    printProductCart()
+  }
 })
 // --------------------- Eventos para aumentar / disminuir / eliminar amount de carrito de compras
 
@@ -274,7 +304,7 @@ shoppingBagAdd.addEventListener('click', function (e) {
 // Comprobar el LocalStorage
 const verificarStorage = () => {
   let dataMode = localStorage.getItem("dataMode");
-  if(dataMode === "true"){
+  if (dataMode === "true") {
     body.className = "darkmode";
     iconSun.style.display = 'block'
     iconDarkMode.style.display = 'none'
@@ -290,21 +320,21 @@ verificarStorage();
 
 
 /* ------------------ANIMATION-LOAD---------------------- */
-    window.addEventListener("load", ()=> {
-      let containerAnimation = document.querySelector(".container__animation");
-      
-      setInterval(() => {
-        containerAnimation.style.opacity = 0;
-      containerAnimation.style.visibility = "hidden";
-      }, 3000);
-    
-    });
+window.addEventListener("load", () => {
+  let containerAnimation = document.querySelector(".container__animation");
+
+  setInterval(() => {
+    containerAnimation.style.opacity = 0;
+    containerAnimation.style.visibility = "hidden";
+  }, 3000);
+
+});
 /* ------------------ANIMATION-LOAD-FIN--------------------- */
 
-    
- 
 
-      
-      
-    
-  
+
+
+
+
+
+
