@@ -43,21 +43,15 @@ let btnHero = document.querySelector('.btn__hero')
 let numCart = document.querySelector('.num_cart');
 
 let productCart = {};
-let objCart = {};
+let objCart = JSON.parse(localStorage.getItem("dataProducts")) || {};
 
 // Lógica del DarkMode
 iconDarkMode.addEventListener("click", () => {
-  // body.className = "darkmode";
-  // iconSun.style.display = 'block'
-  // iconDarkMode.style.display = 'none'
   localStorage.setItem("dataMode", "true")
   verificarStorage();
 });
 
 iconSun.addEventListener("click", () => {
-  // body.className = "body";
-  // iconSun.style.display = 'none'
-  // iconDarkMode.style.display = 'block'
   localStorage.setItem("dataMode", "false")
   verificarStorage();
 });
@@ -118,10 +112,9 @@ closeIcon.addEventListener("click", () => {
 
 
 // --------------------- Código para imprimir los productos seleccionados en el lateral de compras
-function printProductCart() {
+const printProductCart = ()=>{
   let html = '';
   let arrayCart = Object.values(objCart)
-
 
   if (arrayCart.length === 0) {
     shoppingBagAdd.innerHTML = "";
@@ -161,8 +154,7 @@ function printProductCart() {
                       <i class='bx bx-trash red_color'></i>
                     </div>
                   </div>
-                </div>
-                `
+                </div>`
     })
     shoppingBagAdd.innerHTML = html + ` <div class="total__cart">
                                           <div class="price">
@@ -197,11 +189,15 @@ products.addEventListener('click', (e) => {
         })
       } else {
         objCart[e.target.id].amount++
+        localStorage.setItem("dataProducts", JSON.stringify(objCart))
       }
     } else {
       objCart[e.target.id] = { ...selectProduct, amount: 1 }
+      localStorage.setItem("dataProducts", JSON.stringify(objCart))
     }
   }
+
+  console.log(objCart)
 
   printProductCart()
 })
@@ -218,8 +214,6 @@ shoppingBagAdd.addEventListener('click', function (e) {
     return item.id === id
   })
 
-  // let arrayCart = Object.values(objCart)
-
   if (e.target.classList.contains('bx-plus')) {
     if (selectProduct.stock === objCart[id].amount || selectProduct.stock < 1) {
       Swal.fire({
@@ -231,6 +225,7 @@ shoppingBagAdd.addEventListener('click', function (e) {
     } else {
       objCart[id].amount++
     }
+    localStorage.setItem("dataProducts", JSON.stringify(objCart))
     printProductCart()
   }
 
@@ -243,11 +238,13 @@ shoppingBagAdd.addEventListener('click', function (e) {
       }).then((result) => {
         if (result.isConfirmed) {
           delete objCart[id]
+          localStorage.setItem("dataProducts", JSON.stringify(objCart))
           printProductCart()
         }
       })
     } else {
       objCart[id].amount--;
+      localStorage.setItem("dataProducts", JSON.stringify(objCart))
       printProductCart()
     }
   }
@@ -262,6 +259,7 @@ shoppingBagAdd.addEventListener('click', function (e) {
     }).then((result) => {
       if (result.isConfirmed) {
         delete objCart[id]
+        localStorage.setItem("dataProducts", JSON.stringify(objCart))
         printProductCart()
       }
     })
@@ -319,6 +317,7 @@ const verificarStorage = () => {
     iconSun.style.display = 'none'
     iconDarkMode.style.display = 'block'
   }
+  printProductCart();
 }
 verificarStorage();
 // Comprobar el LocalStorage
