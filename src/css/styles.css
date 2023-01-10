@@ -136,6 +136,10 @@ body::-webkit-scrollbar-thumb {
 
 /*----------------- HEADER */
 
+.desktop {
+  display: none;
+}
+
 header {
   width: 100%;
   margin: auto;
@@ -161,24 +165,23 @@ header {
   box-shadow: none;
 }
 
-.fa-table-cells-large {
-  position: relative;
-}
 
 /* AGREGUE EL MENU HAMBURGUESA */
 
 .menu__mobile {
-  position: absolute;
-  top: 0;
-  right: -200%;
-  background: white;
+  width: 100%;
+  height: 110vh;
+  background: var(--body-color);
   display: flex;
   flex-flow: column wrap;
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  width: 100%;
-  height: 100vh;
+
+  position: absolute;
+  top: 0;
+  right: -200%;
+
   transition: right 0.5s;
 }
 
@@ -263,13 +266,14 @@ header {
 /* ESTILOS CARRITO */
 .shopping__bag--summary {
   position: fixed;
-  bottom: 0;
+  top: 0;
   right: -100%;
-  padding: 1rem;
+  padding: 3rem 1rem;
   background: var(--body-color);
   box-shadow: -2px 40px 20px rgb(0 0 0 / 0.2);
-  width: 30%;
-  height: 100vh;
+  width: 100%;
+  max-width: 500px;
+  height: 100%;
   transition: right 0.5s;
 }
 
@@ -303,8 +307,14 @@ header {
 }
 
 .empty__shopping {
+  width: 100%;
+  margin: auto;
   text-align: center;
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
   gap: 0.5rem;
   height: 70%;
 }
@@ -441,7 +451,7 @@ header {
 
 /* Agregue el height y el margin-right para posicionar la descripcion un poco mas al centro de la pantalla */
 .hero__contents {
-  height: 300px;
+  height: auto;
   margin-right: 5rem;
   display: grid;
   gap: 1rem;
