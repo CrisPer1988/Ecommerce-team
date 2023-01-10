@@ -46,6 +46,40 @@ body {
   transition: all .7s;
 }
 
+/* ------------------ANIMATION-LOAD--------------------- */
+
+.container__animation{
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--title-color);
+  position: fixed;
+  z-index: 500;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  -webkit-transition: translateY 1s ;
+  -o-transition: translateY 1s; 
+  transition: translateY 1s; 
+}
+
+.animation__img {
+  width: 100px;
+  height: 100px;
+  
+  -webkit-animation: transladar 1.5s linear infinite;
+  -o-animation: transladar 1.5s linear infinite;
+  animation: transladar 1.5s linear infinite;
+}
+
+@keyframes transladar {
+  from {transform:translateY(0px);}
+  to {transform: translateY(40px);}
+}
+
+/* ------------------ANIMATION-LOAD-FIN--------------------- */
+
 .products__print {
   display: grid;
   gap: 1rem;

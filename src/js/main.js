@@ -279,3 +279,25 @@ const verificarStorage = () => {
 }
 verificarStorage();
 // Comprobar el LocalStorage
+
+
+
+/* ------------------ANIMATION-LOAD---------------------- */
+    window.addEventListener("load", ()=> {
+      let containerAnimation = document.querySelector(".container__animation");
+      
+      setInterval(() => {
+        containerAnimation.style.opacity = 0;
+      containerAnimation.style.visibility = "hidden";
+      }, 3000);
+    
+    });
+    /* ------------------ANIMATION-LOAD-FIN--------------------- */
+
+    
+ 
+
+      
+      
+    
+  
