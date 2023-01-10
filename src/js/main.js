@@ -47,21 +47,19 @@ let objCart = {};
 
 // Lógica del DarkMode
 iconDarkMode.addEventListener("click", () => {
-  body.className = "darkmode";
-  iconSun.style.display = 'block'
-  iconDarkMode.style.display = 'none'
-
-  // verificarStorage();
-  // localStorage.setItem("data", "true")
+  // body.className = "darkmode";
+  // iconSun.style.display = 'block'
+  // iconDarkMode.style.display = 'none'
+  localStorage.setItem("dataMode", "true")
+  verificarStorage();
 });
 
 iconSun.addEventListener("click", () => {
-  body.className = "body";
-  iconSun.style.display = 'none'
-  iconDarkMode.style.display = 'block'
-
-  // verificarStorage();
-  // localStorage.setItem("data", "false")
+  // body.className = "body";
+  // iconSun.style.display = 'none'
+  // iconDarkMode.style.display = 'block'
+  localStorage.setItem("dataMode", "false")
+  verificarStorage();
 });
 // Lógica del DarkMode
 
@@ -275,7 +273,16 @@ shoppingBagAdd.addEventListener('click', function (e) {
 
 // Comprobar el LocalStorage
 const verificarStorage = () => {
-  let dataStorage = localStorage.getItem("data");
+  let dataMode = localStorage.getItem("dataMode");
+  if(dataMode === "true"){
+    body.className = "darkmode";
+    iconSun.style.display = 'block'
+    iconDarkMode.style.display = 'none'
+  } else {
+    body.className = "body";
+    iconSun.style.display = 'none'
+    iconDarkMode.style.display = 'block'
+  }
 }
 verificarStorage();
 // Comprobar el LocalStorage
@@ -292,7 +299,7 @@ verificarStorage();
       }, 3000);
     
     });
-    /* ------------------ANIMATION-LOAD-FIN--------------------- */
+/* ------------------ANIMATION-LOAD-FIN--------------------- */
 
     
  
