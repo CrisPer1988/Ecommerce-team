@@ -47,7 +47,7 @@ body {
 
 /* ------------------ANIMATION-LOAD--------------------- */
 
-.container__animation{
+.container__animation {
   width: 100vw;
   height: 100vh;
   background-color: var(--title-color);
@@ -57,24 +57,29 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  
-  -webkit-transition: translateY 1s ;
-  -o-transition: translateY 1s; 
-  transition: translateY 1s; 
+
+  -webkit-transition: translateY 1s;
+  -o-transition: translateY 1s;
+  transition: translateY 1s;
 }
 
 .animation__img {
   width: 100px;
   height: 100px;
-  
+
   -webkit-animation: transladar 1.5s linear infinite;
   -o-animation: transladar 1.5s linear infinite;
   animation: transladar 1.5s linear infinite;
 }
 
 @keyframes transladar {
-  from {transform:translateY(0px);}
-  to {transform: translateY(40px);}
+  from {
+    transform: translateY(0px);
+  }
+
+  to {
+    transform: translateY(40px);
+  }
 }
 
 /* ------------------ANIMATION-LOAD-FIN--------------------- */
@@ -190,7 +195,8 @@ header {
 }
 
 .menu__mobile a:hover {
-  color: var(--first-color); /* nuevos cambios */
+  color: var(--first-color);
+  /* nuevos cambios */
 }
 
 .left__header {
@@ -313,7 +319,6 @@ header {
 }
 
 .total__cart {
-  height: 80px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -338,8 +343,7 @@ header {
   font-size: 1.5rem;
 }
 
-.btn_buy,
-.btn_off {
+.btn_buy {
   width: 85%;
   margin: auto;
   padding: 0.5rem 1rem;
@@ -350,12 +354,6 @@ header {
   font-weight: bold;
   color: white;
   cursor: pointer;
-}
-
-.btn_off {
-  /* background: none; */
-  /* color: none; */
-  cursor: default;
 }
 
 /* ------------------ESTILOS PRODUCTOS CART */
