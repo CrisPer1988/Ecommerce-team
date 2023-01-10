@@ -37,7 +37,7 @@ body.darkmode {
   font-family: "Roboto", sans-serif;
 }
 
-html,
+
 body {
   background-color: var(--body-color);
   scroll-behavior: smooth;
@@ -170,7 +170,7 @@ header {
 
 .menu__mobile {
   width: 100%;
-  height: 110vh;
+  height: 100vh;
   background: var(--body-color);
   display: flex;
   flex-flow: column wrap;
@@ -518,7 +518,7 @@ header {
   display: grid;
   justify-content: center;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .show__box {
