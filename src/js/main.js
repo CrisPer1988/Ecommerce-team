@@ -328,7 +328,7 @@ verificarStorage();
 window.addEventListener("load", () => {
   let containerAnimation = document.querySelector(".container__animation");
 
-  setInterval(() => {
+  setTimeout(() => {
     containerAnimation.style.opacity = 0;
     containerAnimation.style.visibility = "hidden";
   }, 3000);
