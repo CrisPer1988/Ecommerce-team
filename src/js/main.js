@@ -66,7 +66,7 @@ const printProducts = () => {
   productos.forEach(({ id, name, price, stock, image }) => {
     html += `   <div class="produc__print">
                       <div class="product__img">
-                          <img src="${image}" alt="${name}" />
+                          <img src="${image}" alt="${name}" />                          
                           <button class="product__button button__float" id="${id}">+</button>
                       </div>
 
@@ -131,6 +131,7 @@ const printProductCart = ()=>{
     const totalApagar = arrayCart.reduce((acumulador, item) => {
       return acumulador += (item.price) * (item.amount);
     }, 0)
+    
 
     const totalProductos = arrayCart.reduce((acumulador, item) => {
       return acumulador += (item.amount);
@@ -259,13 +260,17 @@ shoppingBagAdd.addEventListener('click', function (e) {
     }).then((result) => {
       if (result.isConfirmed) {
         delete objCart[id]
+        
         localStorage.setItem("dataProducts", JSON.stringify(objCart))
         printProductCart()
       }
+      
     })
   }
 
   if (e.target.classList.contains('btn_buy')) {
+    numberProduct.innerText = 0;
+    localStorage.setItem("dataProducts", JSON.stringify(numberProduct))
     let newArray = [];
 
     productos.forEach((item) => {
@@ -287,7 +292,7 @@ shoppingBagAdd.addEventListener('click', function (e) {
         })
         newArray.push({
           ...item,
-          stock: item.stock - objCart[item.id].amount
+          stock: item.stock - objCart[item.id].amount      
         })
       } else {
         newArray.push(item)
@@ -296,7 +301,7 @@ shoppingBagAdd.addEventListener('click', function (e) {
 
     productos = newArray;
     objCart = {};
-
+  
     printProducts();
     printProductCart()
   }
