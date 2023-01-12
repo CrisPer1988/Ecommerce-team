@@ -6,6 +6,7 @@ let productos = [
     price: "14.00",
     stock: 10,
     image: "./src/images/featured1.png",
+    category: "Hoodies"
   },
   {
     id: crypto.randomUUID(),
@@ -13,6 +14,7 @@ let productos = [
     price: "24.00",
     stock: 15,
     image: "./src/images/featured2.png",
+    category: "Shirts"
   },
   {
     id: crypto.randomUUID(),
@@ -20,6 +22,7 @@ let productos = [
     price: "24.00",
     stock: 10,
     image: "./src/images/featured3.png",
+    category: "Sweatshirts"
   },
 ]
 
@@ -42,6 +45,12 @@ const numberProduct = document.getElementById("numberProduct");
 let btnHero = document.querySelector('.btn__hero')
 let numCart = document.querySelector('.num_cart');
 
+const All = document.getElementById("All");
+const Hoodies = document.getElementById("Hoodies");
+const Shirts = document.getElementById("Shirts");
+const Sweatshirts = document.getElementById("Sweatshirts");
+
+
 let productCart = {};
 let objCart = JSON.parse(localStorage.getItem("dataProducts")) || {};
 
@@ -60,30 +69,63 @@ iconSun.addEventListener("click", () => {
 
 
 // Función que imprime los productos en el DOM
-const printProducts = () => {
+const printProducts = (filtro) => {
   let html = ""
 
-  productos.forEach(({ id, name, price, stock, image }) => {
-    html += `   <div class="produc__print">
-                      <div class="product__img">
-                          <img src="${image}" alt="${name}" />                          
-                          <button class="product__button button__float" id="${id}">+</button>
-                      </div>
+  if(filtro==="All"){
+    productos.forEach(({ id, name, price, stock, image }) => {
+      html += `   <div class="produc__print">
+                        <div class="product__img">
+                            <img src="${image}" alt="${name}" />
+                            <button class="product__button button__float" id="${id}">+</button>
+                        </div>
+  
+                        <div class="product__info">
+                            <p>${name}</p>
+                            <p>Precio: ${price}</p>
+                            <p>Stock: ${stock}</p>
+                        </div>
+                    </div>`;
+    })
+  
+    products.innerHTML = html
+  } else {
+    let productosFiltrados = productos.filter((producto)=>{
+      return producto.category === filtro;
+    })
 
-                      <div class="product__info">
-                          <p>${name}</p>
-                          <p>Precio: ${price}</p>
-                          <p>Stock: ${stock}</p>
-                      </div>
-                  </div>`;
-  })
-
-  products.innerHTML = html
+    productosFiltrados.forEach(({ id, name, price, stock, image }) => {
+      html += `   <div class="produc__print">
+                        <div class="product__img">
+                            <img src="${image}" alt="${name}" />
+                            <button class="product__button button__float" id="${id}">+</button>
+                        </div>
+  
+                        <div class="product__info">
+                            <p>${name}</p>
+                            <p>Precio: ${price}</p>
+                            <p>Stock: ${stock}</p>
+                        </div>
+                    </div>`;
+    })
+    products.innerHTML = html
+  }
 }
-printProducts();
+printProducts("All");
 // Función que imprime los productos en el DOM
 
-
+All.onclick = ()=>{
+  printProducts("All")
+}
+Hoodies.onclick = ()=>{
+  printProducts("Hoodies")
+}
+Shirts.onclick = ()=>{
+  printProducts("Shirts")
+}
+Sweatshirts.onclick = ()=>{
+  printProducts("Sweatshirts")
+}
 
 // Funciones para el menu hamburguesa (mostrar / ocultar)
 const menuSwitch = () => {
@@ -301,8 +343,8 @@ shoppingBagAdd.addEventListener('click', function (e) {
 
     productos = newArray;
     objCart = {};
-  
-    printProducts();
+
+    printProducts("All");
     printProductCart()
   }
 })
